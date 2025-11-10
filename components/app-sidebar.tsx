@@ -124,7 +124,7 @@ export function AppSidebar({ user }: { user: User | undefined }) {
                   type="button"
                 >
                   <FileText className="h-4 w-4" />
-                  Generate Lesson Plan
+                  Lesson Plans
                 </Button>
               </Link>
               <Link href="/prompts" onClick={() => setOpenMobile(false)}>
@@ -134,7 +134,7 @@ export function AppSidebar({ user }: { user: User | undefined }) {
                   type="button"
                 >
                   <Edit2 className="h-4 w-4" />
-                  Prompt History
+                  Prompts
                 </Button>
               </Link>
               <Link href="/slides" onClick={() => setOpenMobile(false)}>

@@ -131,7 +131,7 @@ const slides = [
             Context Awareness
           </h3>
           <p className="text-lg text-muted-foreground">
-            Lacks awareness of classroom realities—class size, student demographics, and
+            Lacks awareness of classroom realities - class size, student demographics, and
             available resources need to be factored in.
           </p>
         </Card>
@@ -171,7 +171,7 @@ const slides = [
             <div className="flex items-start">
               <span className="text-primary mr-3 text-2xl">1.</span>
               <div>
-                <strong>Start Regional:</strong> Target New York State first—leverage local teacher
+                <strong>Start Regional:</strong> Target New York State first - leverage local teacher
                 network for testing and feedback, align with NY standards
               </div>
             </div>
