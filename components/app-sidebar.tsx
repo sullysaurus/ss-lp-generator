@@ -127,7 +127,7 @@ export function AppSidebar({ user }: { user: User | undefined }) {
                   Generate Lesson Plan
                 </Button>
               </Link>
-              <Link href="/prompts" onClick={() => setOpenMobile(false)}>
+              <Link href="/prompts/lesson-plan" onClick={() => setOpenMobile(false)}>
                 <Button
                   variant="outline"
                   className="w-full justify-start gap-2"
