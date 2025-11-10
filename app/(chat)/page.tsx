@@ -92,11 +92,11 @@ export default function PromptsPage() {
       <div className="w-80 border-r bg-muted/10 p-4">
         <div className="mb-4">
           <div className="space-y-2">
-            <h1 className="text-xl font-semibold">Prompt Tests</h1>
+            <h1 className="text-xl font-semibold">Create Lesson Plan</h1>
             <div className="flex gap-2">
               <Button onClick={handleCreate} size="sm" className="flex-1">
                 <Plus className="h-4 w-4 mr-1" />
-                New Test
+                New LP
               </Button>
               <Button
                 onClick={handleExport}

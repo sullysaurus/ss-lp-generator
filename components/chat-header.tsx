@@ -67,7 +67,7 @@ function PureChatHeader({
           variant="outline"
           className="h-8 px-2 md:h-fit md:px-3"
         >
-          <Link href="/prompts/lesson-plan">
+          <Link href="/prompts">
             <Edit2 className="h-4 w-4 md:mr-2" />
             <span className="hidden md:inline">Edit Prompts</span>
           </Link>
