@@ -196,3 +196,17 @@ export const promptTest = pgTable("PromptTest", {
 });
 
 export type PromptTest = InferSelectModel<typeof promptTest>;
+
+export const promptVersion = pgTable("PromptVersion", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  userId: uuid("userId")
+    .notNull()
+    .references(() => user.id),
+  version: text("version").notNull(), // e.g., "v1", "v2", "final"
+  prompt: text("prompt").notNull(),
+  notes: text("notes"), // What changed in this version
+  metadata: jsonb("metadata"), // Additional data
+  createdAt: timestamp("createdAt").notNull().defaultNow(),
+});
+
+export type PromptVersion = InferSelectModel<typeof promptVersion>;

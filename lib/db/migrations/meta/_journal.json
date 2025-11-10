@@ -64,6 +64,13 @@
       "when": 1762715281942,
       "tag": "0008_flimsy_nova",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1762799219357,
+      "tag": "0009_chemical_klaw",
+      "breakpoints": true
     }
   ]
 }

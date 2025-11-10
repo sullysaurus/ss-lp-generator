@@ -4,15 +4,45 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { ArrowLeft, Copy, Check } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { ArrowLeft, Copy, Check, Save, History, Eye } from "lucide-react";
+
+type PromptVersion = {
+  id: string;
+  version: string;
+  prompt: string;
+  notes: string | null;
+  createdAt: string;
+};
 
 export default function LessonPlanPromptPage() {
   const [prompt, setPrompt] = useState("");
   const [loading, setLoading] = useState(true);
   const [copied, setCopied] = useState(false);
+  const [showSaveDialog, setShowSaveDialog] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [versions, setVersions] = useState<PromptVersion[]>([]);
+  const [selectedVersion, setSelectedVersion] = useState<PromptVersion | null>(null);
+  const [showVersionDialog, setShowVersionDialog] = useState(false);
+
+  const [saveFormData, setSaveFormData] = useState({
+    version: "",
+    notes: "",
+  });
 
   useEffect(() => {
     fetchPrompt();
+    fetchVersions();
   }, []);
 
   const fetchPrompt = async () => {
@@ -29,6 +59,18 @@ export default function LessonPlanPromptPage() {
     }
   };
 
+  const fetchVersions = async () => {
+    try {
+      const response = await fetch("/api/prompt-versions");
+      if (response.ok) {
+        const data = await response.json();
+        setVersions(data);
+      }
+    } catch (error) {
+      console.error("Failed to fetch versions:", error);
+    }
+  };
+
   const handleCopy = async () => {
     try {
       await navigator.clipboard.writeText(prompt);
@@ -40,6 +82,45 @@ export default function LessonPlanPromptPage() {
     }
   };
 
+  const handleSaveVersion = async () => {
+    if (!saveFormData.version.trim()) {
+      alert("Please enter a version name");
+      return;
+    }
+
+    setSaving(true);
+    try {
+      const response = await fetch("/api/prompt-versions", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          version: saveFormData.version,
+          prompt: prompt,
+          notes: saveFormData.notes || null,
+        }),
+      });
+
+      if (response.ok) {
+        setShowSaveDialog(false);
+        setSaveFormData({ version: "", notes: "" });
+        fetchVersions();
+        alert("Prompt version saved successfully!");
+      } else {
+        alert("Failed to save prompt version");
+      }
+    } catch (error) {
+      console.error("Error saving version:", error);
+      alert("Error saving prompt version");
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const handleViewVersion = (version: PromptVersion) => {
+    setSelectedVersion(version);
+    setShowVersionDialog(true);
+  };
+
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
@@ -49,7 +130,7 @@ export default function LessonPlanPromptPage() {
   }
 
   return (
-    <div className="container max-w-4xl mx-auto p-8">
+    <div className="container max-w-6xl mx-auto p-8">
       <div className="mb-6">
         <Link href="/prompts">
           <Button variant="ghost" size="sm" className="mb-4">
@@ -59,52 +140,182 @@ export default function LessonPlanPromptPage() {
         </Link>
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-bold">Current Lesson Plan Prompt</h1>
+            <h1 className="text-2xl font-bold">Lesson Plan Prompt</h1>
             <p className="text-muted-foreground mt-1">
-              This is the prompt currently used by the lesson plan generator
+              Current prompt used by the lesson plan generator
             </p>
           </div>
-          <Button onClick={handleCopy} size="lg">
-            {copied ? (
-              <>
-                <Check className="h-4 w-4 mr-2" />
-                Copied!
-              </>
-            ) : (
-              <>
-                <Copy className="h-4 w-4 mr-2" />
-                Copy Prompt
-              </>
-            )}
-          </Button>
+          <div className="flex gap-2">
+            <Button onClick={() => setShowSaveDialog(true)} variant="default">
+              <Save className="h-4 w-4 mr-2" />
+              Save Version
+            </Button>
+            <Button onClick={handleCopy} variant="outline">
+              {copied ? (
+                <>
+                  <Check className="h-4 w-4 mr-2" />
+                  Copied!
+                </>
+              ) : (
+                <>
+                  <Copy className="h-4 w-4 mr-2" />
+                  Copy
+                </>
+              )}
+            </Button>
+          </div>
         </div>
       </div>
 
-      <Card className="p-6">
-        <pre className="whitespace-pre-wrap font-mono text-sm leading-relaxed">
-          {prompt}
-        </pre>
-      </Card>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Current Prompt */}
+        <div className="lg:col-span-2">
+          <Card className="p-6">
+            <h3 className="font-semibold mb-3">Current Prompt</h3>
+            <pre className="whitespace-pre-wrap font-mono text-sm leading-relaxed max-h-[600px] overflow-y-auto">
+              {prompt}
+            </pre>
+          </Card>
+        </div>
 
-      <div className="mt-6 p-4 bg-muted rounded-lg">
-        <h2 className="font-semibold mb-2">How to use this prompt:</h2>
-        <ol className="list-decimal list-inside space-y-1 text-sm text-muted-foreground">
-          <li>Click "Copy Prompt" above to copy the entire prompt to your clipboard</li>
-          <li>Go back to the Tests page and create a new prompt test</li>
-          <li>Paste the prompt into the "AI Prompt" field</li>
-          <li>Make any edits you want to test</li>
-          <li>Run the automated test to see results across all 3 guides</li>
-          <li>Save your test with notes about what you changed</li>
-        </ol>
+        {/* Version History */}
+        <div>
+          <Card className="p-6">
+            <h3 className="font-semibold mb-3 flex items-center">
+              <History className="h-4 w-4 mr-2" />
+              Version History ({versions.length})
+            </h3>
+            <div className="space-y-2">
+              {versions.length === 0 ? (
+                <p className="text-sm text-muted-foreground text-center py-4">
+                  No versions saved yet.
+                  <br />
+                  Save your first version!
+                </p>
+              ) : (
+                versions.map((version) => (
+                  <Card
+                    key={version.id}
+                    className="p-3 cursor-pointer hover:bg-accent transition-colors"
+                    onClick={() => handleViewVersion(version)}
+                  >
+                    <div className="flex items-start justify-between">
+                      <div className="flex-1 min-w-0">
+                        <h4 className="font-medium text-sm">{version.version}</h4>
+                        {version.notes && (
+                          <p className="text-xs text-muted-foreground mt-1 line-clamp-2">
+                            {version.notes}
+                          </p>
+                        )}
+                        <p className="text-xs text-muted-foreground mt-1">
+                          {new Date(version.createdAt).toLocaleDateString()}
+                        </p>
+                      </div>
+                      <Eye className="h-4 w-4 text-muted-foreground ml-2 flex-shrink-0" />
+                    </div>
+                  </Card>
+                ))
+              )}
+            </div>
+          </Card>
+        </div>
       </div>
 
-      <div className="mt-4 text-center">
-        <Link href="/prompts">
-          <Button variant="outline">
-            Go to Prompt Tests
-          </Button>
-        </Link>
-      </div>
+      {/* Save Version Dialog */}
+      <Dialog open={showSaveDialog} onOpenChange={setShowSaveDialog}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Save Prompt Version</DialogTitle>
+            <DialogDescription>
+              Save the current prompt as a version for tracking iterations.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4">
+            <div className="grid gap-2">
+              <Label htmlFor="version">Version Name *</Label>
+              <Input
+                id="version"
+                value={saveFormData.version}
+                onChange={(e) =>
+                  setSaveFormData({ ...saveFormData, version: e.target.value })
+                }
+                placeholder="e.g., v1, v2, final"
+              />
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="notes">Notes</Label>
+              <Textarea
+                id="notes"
+                value={saveFormData.notes}
+                onChange={(e) =>
+                  setSaveFormData({ ...saveFormData, notes: e.target.value })
+                }
+                placeholder="What changed in this version..."
+                className="min-h-[100px]"
+              />
+            </div>
+          </div>
+          <DialogFooter>
+            <Button
+              variant="outline"
+              onClick={() => setShowSaveDialog(false)}
+              disabled={saving}
+            >
+              Cancel
+            </Button>
+            <Button onClick={handleSaveVersion} disabled={saving}>
+              {saving ? "Saving..." : "Save Version"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* View Version Dialog */}
+      <Dialog open={showVersionDialog} onOpenChange={setShowVersionDialog}>
+        <DialogContent className="max-w-4xl max-h-[90vh]">
+          <DialogHeader>
+            <DialogTitle>{selectedVersion?.version}</DialogTitle>
+            <DialogDescription>
+              Saved on {selectedVersion && new Date(selectedVersion.createdAt).toLocaleString()}
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4 overflow-y-auto max-h-[60vh]">
+            {selectedVersion?.notes && (
+              <div>
+                <Label>Notes:</Label>
+                <p className="text-sm text-muted-foreground mt-1">
+                  {selectedVersion.notes}
+                </p>
+              </div>
+            )}
+            <div>
+              <Label>Prompt:</Label>
+              <Card className="p-4 mt-2">
+                <pre className="whitespace-pre-wrap font-mono text-sm leading-relaxed">
+                  {selectedVersion?.prompt}
+                </pre>
+              </Card>
+            </div>
+          </div>
+          <DialogFooter>
+            <Button
+              variant="outline"
+              onClick={() => {
+                if (selectedVersion) {
+                  navigator.clipboard.writeText(selectedVersion.prompt);
+                  alert("Prompt copied to clipboard!");
+                }
+              }}
+            >
+              <Copy className="h-4 w-4 mr-2" />
+              Copy Prompt
+            </Button>
+            <Button onClick={() => setShowVersionDialog(false)}>
+              Close
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
