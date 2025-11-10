@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Plus, Edit, Trash2, FileText, ArrowLeft, Download } from "lucide-react";
+import { Plus, Edit, Trash2, FileText, ArrowLeft, Download, Eye } from "lucide-react";
 import { PromptTestForm } from "@/components/prompt-test-form";
 import { PromptTestView } from "@/components/prompt-test-view";
 import type { PromptTest } from "@/lib/db/schema";
@@ -99,6 +99,16 @@ export default function PromptsPage() {
           </Link>
           <div className="space-y-2">
             <h1 className="text-xl font-semibold">Prompt Tests</h1>
+            <Link href="/prompts/lesson-plan" className="block">
+              <Button
+                size="sm"
+                variant="secondary"
+                className="w-full mb-2"
+              >
+                <Eye className="h-4 w-4 mr-1" />
+                View Lesson Plan Prompt
+              </Button>
+            </Link>
             <div className="flex gap-2">
               <Button onClick={handleCreate} size="sm" className="flex-1">
                 <Plus className="h-4 w-4 mr-1" />
