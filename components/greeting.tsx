@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
-import { BookOpenIcon } from "./icons";
+import Link from "next/link";
+import { BookOpenIcon, FileIcon } from "./icons";
 
 export const Greeting = () => {
   return (
@@ -28,27 +29,44 @@ export const Greeting = () => {
         </motion.div>
       </div>
 
-      <motion.button
-        animate={{ opacity: 1, y: 0 }}
-        className="group flex items-center gap-3 rounded-xl border-2 border-primary bg-primary px-8 py-4 font-semibold text-lg text-primary-foreground shadow-lg transition-all hover:scale-105 hover:shadow-xl"
-        exit={{ opacity: 0, y: 10 }}
-        initial={{ opacity: 0, y: 10 }}
-        onClick={() => {
-          // Find and click the guide selector trigger button
-          const lessonPlanButton = document.querySelector(
-            '[data-guide-selector-trigger="true"]'
-          ) as HTMLButtonElement;
+      <div className="flex flex-col items-center gap-4 w-full max-w-md">
+        <motion.button
+          animate={{ opacity: 1, y: 0 }}
+          className="group flex w-full items-center justify-center gap-3 rounded-xl border-2 border-primary bg-primary px-8 py-4 font-semibold text-lg text-primary-foreground shadow-lg transition-all hover:scale-105 hover:shadow-xl"
+          exit={{ opacity: 0, y: 10 }}
+          initial={{ opacity: 0, y: 10 }}
+          onClick={() => {
+            // Find and click the guide selector trigger button
+            const lessonPlanButton = document.querySelector(
+              '[data-guide-selector-trigger="true"]'
+            ) as HTMLButtonElement;
 
-          if (lessonPlanButton) {
-            lessonPlanButton.click();
-          }
-        }}
-        transition={{ delay: 0.7 }}
-        type="button"
-      >
-        <BookOpenIcon />
-        Generate Lesson Plan
-      </motion.button>
+            if (lessonPlanButton) {
+              lessonPlanButton.click();
+            }
+          }}
+          transition={{ delay: 0.7 }}
+          type="button"
+        >
+          <BookOpenIcon />
+          Generate Lesson Plan
+        </motion.button>
+
+        <motion.div
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 10 }}
+          initial={{ opacity: 0, y: 10 }}
+          transition={{ delay: 0.75 }}
+          className="w-full"
+        >
+          <Link href="/prompts" className="block w-full">
+            <button className="group flex w-full items-center justify-center gap-3 rounded-xl border-2 border-zinc-300 dark:border-zinc-700 bg-background px-8 py-3 font-semibold text-base transition-all hover:scale-105 hover:border-primary hover:shadow-lg">
+              <FileIcon />
+              Compare Prompts
+            </button>
+          </Link>
+        </motion.div>
+      </div>
 
       <motion.div
         animate={{ opacity: 1, y: 0 }}

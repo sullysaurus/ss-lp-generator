@@ -36,6 +36,7 @@ type PromptTestFormProps = {
 export function PromptTestForm({ test, onClose }: PromptTestFormProps) {
   const [loading, setLoading] = useState(false);
   const [running, setRunning] = useState(false);
+  const [loadingPrompt, setLoadingPrompt] = useState(false);
   const [formData, setFormData] = useState({
     title: test?.title || "",
     prompt: test?.prompt || "",
@@ -48,6 +49,37 @@ export function PromptTestForm({ test, onClose }: PromptTestFormProps) {
     guide3Output: test?.guide3Output || "",
     commentary: test?.commentary || "",
   });
+
+  const handleLoadLessonPlanPrompt = async () => {
+    setLoadingPrompt(true);
+    try {
+      const response = await fetch("/api/prompts/lesson-plan");
+      if (response.ok) {
+        const data = await response.json();
+        setFormData({
+          ...formData,
+          prompt: data.prompt,
+        });
+      } else {
+        alert("Failed to load lesson plan prompt");
+      }
+    } catch (error) {
+      console.error("Error loading prompt:", error);
+      alert("Error loading lesson plan prompt");
+    } finally {
+      setLoadingPrompt(false);
+    }
+  };
+
+  const handleCopyPrompt = async () => {
+    try {
+      await navigator.clipboard.writeText(formData.prompt);
+      alert("Prompt copied to clipboard!");
+    } catch (error) {
+      console.error("Error copying prompt:", error);
+      alert("Failed to copy prompt");
+    }
+  };
 
   const handleRunTest = async () => {
     if (!formData.prompt || !formData.model) {
@@ -215,7 +247,29 @@ export function PromptTestForm({ test, onClose }: PromptTestFormProps) {
 
           {/* Prompt */}
           <div className="grid gap-2">
-            <Label htmlFor="prompt">AI Prompt *</Label>
+            <div className="flex items-center justify-between">
+              <Label htmlFor="prompt">AI Prompt *</Label>
+              <div className="flex gap-2">
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={handleLoadLessonPlanPrompt}
+                  disabled={loadingPrompt}
+                >
+                  {loadingPrompt ? "Loading..." : "📥 Load Lesson Plan Prompt"}
+                </Button>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={handleCopyPrompt}
+                  disabled={!formData.prompt}
+                >
+                  📋 Copy
+                </Button>
+              </div>
+            </div>
             <Textarea
               id="prompt"
               value={formData.prompt}
@@ -226,6 +280,9 @@ export function PromptTestForm({ test, onClose }: PromptTestFormProps) {
               className="min-h-[150px] font-mono text-sm"
               required
             />
+            <p className="text-xs text-muted-foreground">
+              Load the current lesson plan prompt, edit it as needed, then run tests to compare iterations.
+            </p>
           </div>
 
           {/* Run Test Button */}
