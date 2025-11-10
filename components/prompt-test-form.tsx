@@ -104,12 +104,13 @@ export function PromptTestForm({ test, onClose }: PromptTestFormProps) {
       if (response.ok) {
         const data = await response.json();
 
-        // Auto-populate the guide outputs
+        // Auto-populate the guide outputs AND commentary
         setFormData({
           ...formData,
           guide1Output: data.results[0]?.output || "",
           guide2Output: data.results[1]?.output || "",
           guide3Output: data.results[2]?.output || "",
+          commentary: data.commentary || "",
         });
       } else {
         console.error("Failed to run test");
@@ -297,10 +298,10 @@ export function PromptTestForm({ test, onClose }: PromptTestFormProps) {
               {running ? (
                 <>
                   <span className="inline-block animate-spin mr-2">⏳</span>
-                  Running test across all 3 guides...
+                  Running test & generating analysis...
                 </>
               ) : (
-                "🚀 Run Automated Test"
+                "🚀 Run Test & Auto-Generate Analysis"
               )}
             </Button>
           </div>
@@ -361,6 +362,9 @@ export function PromptTestForm({ test, onClose }: PromptTestFormProps) {
               placeholder="Document your reasoning, what went well, areas for improvement, etc..."
               className="min-h-[120px]"
             />
+            <p className="text-xs text-muted-foreground">
+              💡 Auto-generated when you run the test. Includes scores, analysis, and recommendations. Feel free to edit!
+            </p>
           </div>
 
           <DialogFooter>
