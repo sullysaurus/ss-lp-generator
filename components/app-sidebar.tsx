@@ -31,6 +31,7 @@ import {
   AlertDialogTitle,
 } from "./ui/alert-dialog";
 import { Edit2, Presentation } from "lucide-react";
+import { SiGithub } from "@icons-pack/react-simple-icons";
 
 export function AppSidebar({ user }: { user: User | undefined }) {
   const router = useRouter();
@@ -123,7 +124,7 @@ export function AppSidebar({ user }: { user: User | undefined }) {
                   type="button"
                 >
                   <Edit2 className="h-4 w-4" />
-                  Edit Prompts
+                  Prompt History
                 </Button>
               </Link>
               <Link href="/slides" onClick={() => setOpenMobile(false)}>
@@ -136,6 +137,21 @@ export function AppSidebar({ user }: { user: User | undefined }) {
                   Slides
                 </Button>
               </Link>
+              <a
+                href="https://github.com/sullysaurus/ss-lp-generator"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setOpenMobile(false)}
+              >
+                <Button
+                  variant="outline"
+                  className="w-full justify-start gap-2"
+                  type="button"
+                >
+                  <SiGithub className="h-4 w-4" />
+                  View Code
+                </Button>
+              </a>
             </div>
           )}
           <SidebarHistory user={user} />
