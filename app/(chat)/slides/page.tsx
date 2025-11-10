@@ -18,22 +18,30 @@ const slides = [
             into comprehensive lesson plans for educators.
           </p>
         </div>
-        <div className="grid grid-cols-3 gap-6 mt-8">
-          <Card className="p-6 text-center">
-            <div className="text-4xl font-bold text-primary mb-2">3</div>
-            <div className="text-sm text-muted-foreground">AI Models Tested</div>
-            <div className="text-xs mt-1">Grok, Claude, Gemini</div>
-          </Card>
-          <Card className="p-6 text-center">
-            <div className="text-4xl font-bold text-primary mb-2">30+</div>
-            <div className="text-sm text-muted-foreground">Prompt Iterations</div>
-            <div className="text-xs mt-1">With version tracking</div>
-          </Card>
-          <Card className="p-6 text-center">
-            <div className="text-4xl font-bold text-primary mb-2">100%</div>
-            <div className="text-sm text-muted-foreground">Automated</div>
-            <div className="text-xs mt-1">End-to-end workflow</div>
-          </Card>
+        <div className="mt-8">
+          <h3 className="text-xl font-semibold mb-6 text-center">Technology Stack</h3>
+          <div className="space-y-4 text-lg max-w-2xl mx-auto">
+            <div className="flex items-start">
+              <span className="text-primary mr-3">•</span>
+              <p><strong>Frontend:</strong> Next.js 15, React, TypeScript, TailwindCSS</p>
+            </div>
+            <div className="flex items-start">
+              <span className="text-primary mr-3">•</span>
+              <p><strong>AI Models:</strong> Grok Beta, Claude Sonnet 4, Gemini Flash 2.0</p>
+            </div>
+            <div className="flex items-start">
+              <span className="text-primary mr-3">•</span>
+              <p><strong>Backend:</strong> Next.js API Routes, Vercel AI SDK, Drizzle ORM</p>
+            </div>
+            <div className="flex items-start">
+              <span className="text-primary mr-3">•</span>
+              <p><strong>Database:</strong> PostgreSQL with prompt version tracking</p>
+            </div>
+            <div className="flex items-start">
+              <span className="text-primary mr-3">•</span>
+              <p><strong>Analytics:</strong> PostHog MCP integration for usage tracking</p>
+            </div>
+          </div>
         </div>
       </div>
     ),
