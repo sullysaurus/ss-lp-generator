@@ -318,7 +318,7 @@ export function PromptTestForm({ test, onClose }: PromptTestFormProps) {
                 onChange={(e) =>
                   setFormData({ ...formData, guide1Output: e.target.value })
                 }
-                placeholder="Paste the generated output for this guide..."
+                placeholder="Your lesson plan will appear here after running the test..."
                 className="min-h-[100px] text-sm"
               />
             </div>
@@ -331,7 +331,7 @@ export function PromptTestForm({ test, onClose }: PromptTestFormProps) {
                 onChange={(e) =>
                   setFormData({ ...formData, guide2Output: e.target.value })
                 }
-                placeholder="Paste the generated output for this guide..."
+                placeholder="Your lesson plan will appear here after running the test..."
                 className="min-h-[100px] text-sm"
               />
             </div>
@@ -344,7 +344,7 @@ export function PromptTestForm({ test, onClose }: PromptTestFormProps) {
                 onChange={(e) =>
                   setFormData({ ...formData, guide3Output: e.target.value })
                 }
-                placeholder="Paste the generated output for this guide..."
+                placeholder="Your lesson plan will appear here after running the test..."
                 className="min-h-[100px] text-sm"
               />
             </div>
@@ -359,7 +359,7 @@ export function PromptTestForm({ test, onClose }: PromptTestFormProps) {
               onChange={(e) =>
                 setFormData({ ...formData, commentary: e.target.value })
               }
-              placeholder="Document your reasoning, what went well, areas for improvement, etc..."
+              placeholder="Your analysis will be generated here after running the test..."
               className="min-h-[120px]"
             />
             <p className="text-xs text-muted-foreground">
