@@ -117,7 +117,7 @@ export function AppSidebar({ user }: { user: User | undefined }) {
         <SidebarContent>
           {user && (
             <div className="px-2 pb-4 space-y-2">
-              <Link href="/generate" onClick={() => setOpenMobile(false)}>
+              <Link href="/" onClick={() => setOpenMobile(false)}>
                 <Button
                   variant="default"
                   className="w-full justify-start gap-2"
@@ -127,7 +127,7 @@ export function AppSidebar({ user }: { user: User | undefined }) {
                   Generate Lesson Plan
                 </Button>
               </Link>
-              <Link href="/prompts/lesson-plan" onClick={() => setOpenMobile(false)}>
+              <Link href="/prompts" onClick={() => setOpenMobile(false)}>
                 <Button
                   variant="outline"
                   className="w-full justify-start gap-2"
