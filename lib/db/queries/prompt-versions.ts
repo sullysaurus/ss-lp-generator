@@ -1,6 +1,13 @@
+import "server-only";
+
 import { desc, eq } from "drizzle-orm";
-import { db } from "../db";
+import { drizzle } from "drizzle-orm/postgres-js";
+import postgres from "postgres";
 import { promptVersion, type PromptVersion } from "../schema";
+
+// biome-ignore lint: Forbidden non-null assertion.
+const client = postgres(process.env.POSTGRES_URL!);
+const db = drizzle(client);
 
 export async function savePromptVersion(
 	userId: string,
