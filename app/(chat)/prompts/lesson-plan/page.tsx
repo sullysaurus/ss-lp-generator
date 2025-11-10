@@ -180,7 +180,7 @@ export default function LessonPlanPromptPage() {
   return (
     <div className="container max-w-6xl mx-auto p-8">
       <div className="mb-6">
-        <Link href="/prompts">
+        <Link href="/">
           <Button variant="ghost" size="sm" className="mb-4">
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back to Tests
