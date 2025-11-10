@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Plus, Edit, Trash2, FileText, ArrowLeft } from "lucide-react";
+import { Plus, Edit, Trash2, FileText, ArrowLeft, Download } from "lucide-react";
 import { PromptTestForm } from "@/components/prompt-test-form";
 import { PromptTestView } from "@/components/prompt-test-view";
 import type { PromptTest } from "@/lib/db/schema";
@@ -73,6 +73,11 @@ export default function PromptsPage() {
     }
   };
 
+  const handleExport = () => {
+    // Trigger download by opening the export endpoint
+    window.open("/api/prompt-tests/export", "_blank");
+  };
+
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
@@ -92,12 +97,25 @@ export default function PromptsPage() {
               Back to Chats
             </Button>
           </Link>
-          <div className="flex items-center justify-between">
+          <div className="space-y-2">
             <h1 className="text-xl font-semibold">Prompt Tests</h1>
-            <Button onClick={handleCreate} size="sm">
-              <Plus className="h-4 w-4 mr-1" />
-              New Test
-            </Button>
+            <div className="flex gap-2">
+              <Button onClick={handleCreate} size="sm" className="flex-1">
+                <Plus className="h-4 w-4 mr-1" />
+                New Test
+              </Button>
+              <Button
+                onClick={handleExport}
+                size="sm"
+                variant="outline"
+                className="flex-1"
+                disabled={tests.length === 0}
+                title="Export all tests to CSV spreadsheet"
+              >
+                <Download className="h-4 w-4 mr-1" />
+                Export CSV
+              </Button>
+            </div>
           </div>
         </div>
 

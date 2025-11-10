@@ -35,6 +35,7 @@ type PromptTestFormProps = {
 
 export function PromptTestForm({ test, onClose }: PromptTestFormProps) {
   const [loading, setLoading] = useState(false);
+  const [running, setRunning] = useState(false);
   const [formData, setFormData] = useState({
     title: test?.title || "",
     prompt: test?.prompt || "",
@@ -47,6 +48,48 @@ export function PromptTestForm({ test, onClose }: PromptTestFormProps) {
     guide3Output: test?.guide3Output || "",
     commentary: test?.commentary || "",
   });
+
+  const handleRunTest = async () => {
+    if (!formData.prompt || !formData.model) {
+      alert("Please enter a prompt and select a model first");
+      return;
+    }
+
+    setRunning(true);
+
+    try {
+      const response = await fetch("/api/prompt-tests/run", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          prompt: formData.prompt,
+          model: formData.model,
+          temperature: parseFloat(formData.temperature),
+          maxTokens: parseInt(formData.maxTokens),
+        }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+
+        // Auto-populate the guide outputs
+        setFormData({
+          ...formData,
+          guide1Output: data.results[0]?.output || "",
+          guide2Output: data.results[1]?.output || "",
+          guide3Output: data.results[2]?.output || "",
+        });
+      } else {
+        console.error("Failed to run test");
+        alert("Failed to run test. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error running test:", error);
+      alert("Error running test. Please try again.");
+    } finally {
+      setRunning(false);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -185,9 +228,29 @@ export function PromptTestForm({ test, onClose }: PromptTestFormProps) {
             />
           </div>
 
+          {/* Run Test Button */}
+          <div className="flex justify-center py-4">
+            <Button
+              type="button"
+              onClick={handleRunTest}
+              disabled={running || !formData.prompt || !formData.model}
+              className="w-full max-w-md"
+              variant="secondary"
+            >
+              {running ? (
+                <>
+                  <span className="inline-block animate-spin mr-2">⏳</span>
+                  Running test across all 3 guides...
+                </>
+              ) : (
+                "🚀 Run Automated Test"
+              )}
+            </Button>
+          </div>
+
           {/* Test Outputs */}
           <div className="space-y-4">
-            <h3 className="font-medium">Test Outputs (Optional)</h3>
+            <h3 className="font-medium">Test Outputs {running && "(Running...)"}</h3>
 
             <div className="grid gap-2">
               <Label htmlFor="guide1Output">Guide 1: A Respectable Woman</Label>
