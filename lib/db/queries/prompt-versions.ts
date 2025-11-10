@@ -1,6 +1,6 @@
 import "server-only";
 
-import { desc, eq } from "drizzle-orm";
+import { and, desc, eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/postgres-js";
 import postgres from "postgres";
 import { promptVersion, type PromptVersion } from "../schema";
@@ -44,8 +44,9 @@ export async function getActivePromptVersion(
 	const [version] = await db
 		.select()
 		.from(promptVersion)
-		.where(eq(promptVersion.userId, userId))
-		.where(eq(promptVersion.isActive, true));
+		.where(
+			and(eq(promptVersion.userId, userId), eq(promptVersion.isActive, true)),
+		);
 
 	return version || null;
 }
@@ -64,8 +65,7 @@ export async function setActivePromptVersion(
 	await db
 		.update(promptVersion)
 		.set({ isActive: true })
-		.where(eq(promptVersion.id, id))
-		.where(eq(promptVersion.userId, userId));
+		.where(and(eq(promptVersion.id, id), eq(promptVersion.userId, userId)));
 }
 
 export async function getPromptVersions(
@@ -85,8 +85,7 @@ export async function getPromptVersionById(
 	const [version] = await db
 		.select()
 		.from(promptVersion)
-		.where(eq(promptVersion.id, id))
-		.where(eq(promptVersion.userId, userId));
+		.where(and(eq(promptVersion.id, id), eq(promptVersion.userId, userId)));
 
 	return version || null;
 }
@@ -97,6 +96,5 @@ export async function deletePromptVersion(
 ): Promise<void> {
 	await db
 		.delete(promptVersion)
-		.where(eq(promptVersion.id, id))
-		.where(eq(promptVersion.userId, userId));
+		.where(and(eq(promptVersion.id, id), eq(promptVersion.userId, userId)));
 }
