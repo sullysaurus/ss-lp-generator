@@ -37,11 +37,13 @@ import {
 } from "./elements/prompt-input";
 import {
   ArrowUpIcon,
+  BookOpenIcon,
   ChevronDownIcon,
   CpuIcon,
   PaperclipIcon,
   StopIcon,
 } from "./icons";
+import { GuideSelector } from "./guide-selector";
 import { PreviewAttachment } from "./preview-attachment";
 import { SuggestedActions } from "./suggested-actions";
 import { Button } from "./ui/button";
@@ -104,6 +106,19 @@ function PureMultimodalInput({
   const [localStorageInput, setLocalStorageInput] = useLocalStorage(
     "input",
     ""
+  );
+
+  const [showGuideSelector, setShowGuideSelector] = useState(false);
+
+  const handleGenerateLessonPlan = useCallback(
+    (prompt: string) => {
+      setInput(prompt);
+      // Focus textarea after setting input
+      setTimeout(() => {
+        textareaRef.current?.focus();
+      }, 0);
+    },
+    [setInput]
   );
 
   useEffect(() => {
@@ -288,16 +303,6 @@ function PureMultimodalInput({
 
   return (
     <div className={cn("relative flex w-full flex-col gap-4", className)}>
-      {messages.length === 0 &&
-        attachments.length === 0 &&
-        uploadQueue.length === 0 && (
-          <SuggestedActions
-            chatId={chatId}
-            selectedVisibilityType={selectedVisibilityType}
-            sendMessage={sendMessage}
-          />
-        )}
-
       <input
         className="-top-4 -left-4 pointer-events-none fixed size-0.5 opacity-0"
         multiple
@@ -368,7 +373,18 @@ function PureMultimodalInput({
           <Context {...contextProps} />
         </div>
         <PromptInputToolbar className="!border-top-0 border-t-0! p-0 shadow-none dark:border-0 dark:border-transparent!">
-          <PromptInputTools className="gap-0 sm:gap-0.5">
+          <PromptInputTools className="gap-1 sm:gap-2">
+            <Button
+              onClick={() => setShowGuideSelector(true)}
+              variant="outline"
+              type="button"
+              size="sm"
+              className="h-8 gap-2"
+              data-guide-selector-trigger="true"
+            >
+              <BookOpenIcon />
+              <span className="hidden sm:inline">Generate Lesson Plan</span>
+            </Button>
             <AttachmentsButton
               fileInputRef={fileInputRef}
               selectedModelId={selectedModelId}
@@ -394,6 +410,12 @@ function PureMultimodalInput({
           )}
         </PromptInputToolbar>
       </PromptInput>
+
+      <GuideSelector
+        open={showGuideSelector}
+        onOpenChange={setShowGuideSelector}
+        onGenerate={handleGenerateLessonPlan}
+      />
     </div>
   );
 }

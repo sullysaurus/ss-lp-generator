@@ -171,3 +171,28 @@ export const stream = pgTable(
 );
 
 export type Stream = InferSelectModel<typeof stream>;
+
+export const promptTest = pgTable("PromptTest", {
+  id: uuid("id").primaryKey().notNull().defaultRandom(),
+  createdAt: timestamp("createdAt").notNull().defaultNow(),
+  updatedAt: timestamp("updatedAt").notNull().defaultNow(),
+  userId: uuid("userId")
+    .notNull()
+    .references(() => user.id),
+  title: text("title").notNull(),
+  prompt: text("prompt").notNull(),
+  model: varchar("model", { length: 50 }).notNull(), // grok, claude, openai, gemini
+  settings: jsonb("settings").$type<{
+    temperature?: number;
+    maxTokens?: number;
+    topP?: number;
+    [key: string]: any;
+  }>(),
+  guide1Output: text("guide1Output"),
+  guide2Output: text("guide2Output"),
+  guide3Output: text("guide3Output"),
+  commentary: text("commentary"),
+  iteration: varchar("iteration", { length: 50 }), // e.g., "v1", "v2", "final"
+});
+
+export type PromptTest = InferSelectModel<typeof promptTest>;

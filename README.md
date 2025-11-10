@@ -1,56 +1,63 @@
-<a href="https://chat.vercel.ai/">
-  <img alt="Next.js 14 and App Router-ready AI chatbot." src="app/(chat)/opengraph-image.png">
-  <h1 align="center">Chat SDK</h1>
-</a>
+# SuperSummary Lesson Plan Generator
 
-<p align="center">
-    Chat SDK is a free, open-source template built with Next.js and the AI SDK that helps you quickly build powerful chatbot applications.
-</p>
+AI-powered lesson plan generator with prompt testing capabilities, built with Next.js and the AI SDK.
 
-<p align="center">
-  <a href="https://chat-sdk.dev"><strong>Read Docs</strong></a> ·
-  <a href="#features"><strong>Features</strong></a> ·
-  <a href="#model-providers"><strong>Model Providers</strong></a> ·
-  <a href="#deploy-your-own"><strong>Deploy Your Own</strong></a> ·
-  <a href="#running-locally"><strong>Running locally</strong></a>
-</p>
-<br/>
+## Tech Stack
+
+- **Framework**: Next.js 15 with App Router
+- **AI**: Vercel AI SDK with xAI Grok models
+- **MCP**: Model Context Protocol for serving study guides
+- **Database**: Neon Postgres with Drizzle ORM
+- **UI**: shadcn/ui + Tailwind CSS + Radix UI
+- **Auth**: NextAuth.js
 
 ## Features
 
-- [Next.js](https://nextjs.org) App Router
-  - Advanced routing for seamless navigation and performance
-  - React Server Components (RSCs) and Server Actions for server-side rendering and increased performance
-- [AI SDK](https://ai-sdk.dev/docs/introduction)
-  - Unified API for generating text, structured objects, and tool calls with LLMs
-  - Hooks for building dynamic chat and generative user interfaces
-  - Supports xAI (default), OpenAI, Fireworks, and other model providers
-- [shadcn/ui](https://ui.shadcn.com)
-  - Styling with [Tailwind CSS](https://tailwindcss.com)
-  - Component primitives from [Radix UI](https://radix-ui.com) for accessibility and flexibility
-- Data Persistence
-  - [Neon Serverless Postgres](https://vercel.com/marketplace/neon) for saving chat history and user data
-  - [Vercel Blob](https://vercel.com/storage/blob) for efficient file storage
-- [Auth.js](https://authjs.dev)
-  - Simple and secure authentication
+### Lesson Plan Generator
+- Generate custom lesson plans from 3 literary study guides
+- AI-powered responses using Grok models
+- Searchable guide selector with detailed descriptions
+- Multi-modal support (text and file attachments)
 
-## Model Providers
+### Prompt Testing Interface
+- Document and compare AI prompt iterations
+- Test prompts across multiple guides
+- Track model settings (temperature, tokens, etc.)
+- Add commentary and iteration notes
+- Full CRUD operations for test management
 
-This template uses the [Vercel AI Gateway](https://vercel.com/docs/ai-gateway) to access multiple AI models through a unified interface. The default configuration includes [xAI](https://x.ai) models (`grok-2-vision-1212`, `grok-3-mini`) routed through the gateway.
+### Study Guides (via MCP)
+1. "A Respectable Woman" by Kate Chopin
+2. "Teaching Critical Thinking" by bell hooks
+3. "The Corrections" by Jonathan Franzen
 
-### AI Gateway Authentication
+## How to Use
 
-**For Vercel deployments**: Authentication is handled automatically via OIDC tokens.
+### Getting Started
+On the home screen, click the **"Generate Lesson Plan"** button to start creating educational content. You can also ask questions in the chat to learn about the guides, features, and how MCP works.
 
-**For non-Vercel deployments**: You need to provide an AI Gateway API key by setting the `AI_GATEWAY_API_KEY` environment variable in your `.env.local` file.
+### Generate a Lesson Plan
+1. Click **"Generate Lesson Plan"** button in the chat input
+2. Select a guide from the searchable dropdown
+3. Choose your desired lesson plan type (single lesson, week-long unit, etc.)
+4. The AI will generate a comprehensive lesson plan with objectives, activities, and assessments
 
-With the [AI SDK](https://ai-sdk.dev/docs/introduction), you can also switch to direct LLM providers like [OpenAI](https://openai.com), [Anthropic](https://anthropic.com), [Cohere](https://cohere.com/), and [many more](https://ai-sdk.dev/providers/ai-sdk-providers) with just a few lines of code.
+### Test Prompts
+1. Navigate to **"Prompt Tests"** from the sidebar
+2. Click **"New Test"** to create a prompt test
+3. Fill in:
+   - Title and prompt text
+   - Model and temperature settings
+   - Test outputs for each guide
+   - Commentary on results
+4. Save and compare different prompt iterations
 
-## Deploy Your Own
-
-You can deploy your own version of the Next.js AI Chatbot to Vercel with one click:
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/templates/next.js/nextjs-ai-chatbot)
+### Chat Features
+- Ask questions about the study guides
+- Request specific teaching materials
+- Upload files for context
+- View and continue previous conversations
+- Ask "how does this work" or "where do guides come from" for help
 
 ## Running locally
 

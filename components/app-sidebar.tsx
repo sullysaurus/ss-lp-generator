@@ -30,6 +30,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "./ui/alert-dialog";
+import { FileText } from "lucide-react";
 
 export function AppSidebar({ user }: { user: User | undefined }) {
   const router = useRouter();
@@ -113,6 +114,20 @@ export function AppSidebar({ user }: { user: User | undefined }) {
           </SidebarMenu>
         </SidebarHeader>
         <SidebarContent>
+          {user && (
+            <div className="px-2 pb-4">
+              <Link href="/prompts" onClick={() => setOpenMobile(false)}>
+                <Button
+                  variant="outline"
+                  className="w-full justify-start gap-2"
+                  type="button"
+                >
+                  <FileText className="h-4 w-4" />
+                  Prompt Tests
+                </Button>
+              </Link>
+            </div>
+          )}
           <SidebarHistory user={user} />
         </SidebarContent>
         <SidebarFooter>{user && <SidebarUserNav user={user} />}</SidebarFooter>
