@@ -30,6 +30,11 @@ export const myProvider = isTestEnvironment
           model: gateway.languageModel("xai/grok-3-mini"),
           middleware: extractReasoningMiddleware({ tagName: "think" }),
         }),
+        "chat-model-claude": wrapLanguageModel({
+          model: gateway.languageModel("anthropic/claude-sonnet-4.5"),
+          middleware: extractReasoningMiddleware({ tagName: "thinking" }),
+        }),
+        "chat-model-gemini": gateway.languageModel("google/gemini-2.0-flash-lite"),
         "title-model": gateway.languageModel("xai/grok-2-1212"),
         "artifact-model": gateway.languageModel("xai/grok-2-1212"),
       },

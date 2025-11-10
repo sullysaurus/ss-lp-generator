@@ -18,4 +18,14 @@ export const chatModels: ChatModel[] = [
     description:
       "Uses advanced chain-of-thought reasoning for complex problems",
   },
+  {
+    id: "chat-model-claude",
+    name: "Claude Sonnet 4.5",
+    description: "Anthropic's most capable model for complex reasoning",
+  },
+  {
+    id: "chat-model-gemini",
+    name: "Gemini 2.0 Flash",
+    description: "Google's fast multimodal model",
+  },
 ];

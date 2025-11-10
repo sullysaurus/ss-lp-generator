@@ -5,7 +5,7 @@ AI-powered lesson plan generator with prompt testing capabilities, built with Ne
 ## Tech Stack
 
 - **Framework**: Next.js 15 with App Router
-- **AI**: Vercel AI SDK with xAI Grok models
+- **AI**: Vercel AI SDK with multiple models (Grok, Claude, Gemini)
 - **MCP**: Model Context Protocol for serving study guides
 - **Database**: Neon Postgres with Drizzle ORM
 - **UI**: shadcn/ui + Tailwind CSS + Radix UI
@@ -15,7 +15,11 @@ AI-powered lesson plan generator with prompt testing capabilities, built with Ne
 
 ### Lesson Plan Generator
 - Generate custom lesson plans from 3 literary study guides
-- AI-powered responses using Grok models
+- AI-powered responses with multiple model options:
+  - **Grok Vision**: Advanced multimodal model
+  - **Grok Reasoning**: Chain-of-thought reasoning
+  - **Claude Sonnet 4.5**: Anthropic's most capable model
+  - **Gemini 2.0 Flash**: Google's fast multimodal model
 - Searchable guide selector with detailed descriptions
 - Multi-modal support (text and file attachments)
 

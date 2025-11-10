@@ -24,9 +24,8 @@ import type { PromptTest } from "@/lib/db/schema";
 
 const MODELS = [
   { value: "grok", label: "Grok" },
-  { value: "claude", label: "Claude" },
-  { value: "openai", label: "OpenAI (GPT-4)" },
-  { value: "gemini", label: "Google Gemini" },
+  { value: "claude", label: "Claude Sonnet 4.5" },
+  { value: "gemini", label: "Gemini 2.0 Flash" },
 ];
 
 type PromptTestFormProps = {
