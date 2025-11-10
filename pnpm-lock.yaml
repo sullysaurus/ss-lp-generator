@@ -20,9 +20,6 @@ importers:
       '@ai-sdk/react':
         specifier: 2.0.26
         version: 2.0.26(react@19.0.0-rc-45804af1-20241021)(zod@3.25.76)
-      '@ai-sdk/xai':
-        specifier: 2.0.13
-        version: 2.0.13(zod@3.25.76)
       '@codemirror/lang-javascript':
         specifier: ^6.2.2
         version: 6.2.4
@@ -342,17 +339,6 @@ packages:
       zod: 3.25.76
     dev: false
 
-  /@ai-sdk/openai-compatible@1.0.13(zod@3.25.76):
-    resolution: {integrity: sha512-g46fLVWKcVg1XOFzDLoJ0XuhtY5XxxBwMQ0FT/aHwCtg6WUvk3Elrd+MKmgfvhZAdIR7CpUTvgJAAipu4RW75w==}
-    engines: {node: '>=18'}
-    peerDependencies:
-      zod: ^3.25.76 || ^4
-    dependencies:
-      '@ai-sdk/provider': 2.0.0
-      '@ai-sdk/provider-utils': 3.0.7(zod@3.25.76)
-      zod: 3.25.76
-    dev: false
-
   /@ai-sdk/openai@2.0.64(zod@3.25.76):
     resolution: {integrity: sha512-+1mqxn42uB32DPZ6kurSyGAmL3MgCaDpkYU7zNDWI4NLy3Zg97RxTsI1jBCGIqkEVvRZKJlIMYtb89OvMnq3AQ==}
     engines: {node: '>=18'}
@@ -422,18 +408,6 @@ packages:
       react: 19.0.0-rc-45804af1-20241021
       swr: 2.3.6(react@19.0.0-rc-45804af1-20241021)
       throttleit: 2.1.0
-      zod: 3.25.76
-    dev: false
-
-  /@ai-sdk/xai@2.0.13(zod@3.25.76):
-    resolution: {integrity: sha512-nWOmAInQg8uGIJ08XBxKQ9vmFpgS+bulCKtNMatW5Q62sza+f/1vuVo7fBPbxGm5SWUOno6hjAKi3ipVpLcwRQ==}
-    engines: {node: '>=18'}
-    peerDependencies:
-      zod: ^3.25.76 || ^4
-    dependencies:
-      '@ai-sdk/openai-compatible': 1.0.13(zod@3.25.76)
-      '@ai-sdk/provider': 2.0.0
-      '@ai-sdk/provider-utils': 3.0.7(zod@3.25.76)
       zod: 3.25.76
     dev: false
 

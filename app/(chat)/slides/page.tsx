@@ -27,7 +27,7 @@ const slides = [
             </div>
             <div className="flex items-start">
               <span className="text-primary mr-3">•</span>
-              <p><strong>AI Models:</strong> Grok Beta, Claude Sonnet 4, Gemini Flash 2.0</p>
+              <p><strong>AI Models:</strong> Claude Sonnet 4.5, Gemini Flash 2.0</p>
             </div>
             <div className="flex items-start">
               <span className="text-primary mr-3">•</span>
