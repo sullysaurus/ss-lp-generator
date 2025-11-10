@@ -205,6 +205,7 @@ export const promptVersion = pgTable("PromptVersion", {
   version: text("version").notNull(), // e.g., "v1", "v2", "final"
   prompt: text("prompt").notNull(),
   notes: text("notes"), // What changed in this version
+  isActive: boolean("isActive").notNull().default(false), // Currently active version
   metadata: jsonb("metadata"), // Additional data
   createdAt: timestamp("createdAt").notNull().defaultNow(),
 });

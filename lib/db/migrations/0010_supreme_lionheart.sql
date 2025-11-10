@@ -1,0 +1,1 @@
+ALTER TABLE "PromptVersion" ADD COLUMN "isActive" boolean DEFAULT false NOT NULL;
