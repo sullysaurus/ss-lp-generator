@@ -9,29 +9,28 @@ import { ArrowLeft, ChevronLeft, ChevronRight } from "lucide-react";
 const slides = [
   {
     title: "AI-Powered Lesson Plan Generator",
-    subtitle: "Transforming SuperSummary Study Guides into Actionable Educational Content",
+    subtitle: "Transforming SuperSummary Study Guides into Ready-to-Use Lesson Plans",
     content: (
-      <div className="space-y-6">
+      <div className="space-y-8">
         <div className="text-center">
-          <h3 className="text-xl font-semibold mb-4">Project Overview</h3>
-          <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             An intelligent system that leverages AI to transform SuperSummary study guides
-            into comprehensive, standards-aligned lesson plans for educators.
+            into comprehensive lesson plans for educators.
           </p>
         </div>
-        <div className="grid grid-cols-3 gap-4 mt-8">
-          <Card className="p-4 text-center">
-            <div className="text-3xl font-bold text-primary">3</div>
-            <div className="text-sm text-muted-foreground">AI Models</div>
+        <div className="grid grid-cols-3 gap-6 mt-8">
+          <Card className="p-6 text-center">
+            <div className="text-4xl font-bold text-primary mb-2">3</div>
+            <div className="text-sm text-muted-foreground">AI Models Tested</div>
             <div className="text-xs mt-1">Grok, Claude, Gemini</div>
           </Card>
-          <Card className="p-4 text-center">
-            <div className="text-3xl font-bold text-primary">30+</div>
-            <div className="text-sm text-muted-foreground">Test Iterations</div>
-            <div className="text-xs mt-1">With versioning system</div>
+          <Card className="p-6 text-center">
+            <div className="text-4xl font-bold text-primary mb-2">30+</div>
+            <div className="text-sm text-muted-foreground">Prompt Iterations</div>
+            <div className="text-xs mt-1">With version tracking</div>
           </Card>
-          <Card className="p-4 text-center">
-            <div className="text-3xl font-bold text-primary">100%</div>
+          <Card className="p-6 text-center">
+            <div className="text-4xl font-bold text-primary mb-2">100%</div>
             <div className="text-sm text-muted-foreground">Automated</div>
             <div className="text-xs mt-1">End-to-end workflow</div>
           </Card>
@@ -40,329 +39,166 @@ const slides = [
     ),
   },
   {
-    title: "Feature Selection",
-    subtitle: "Why Lesson Plan Generation?",
+    title: "Why Lesson Plan Generation?",
+    subtitle: "Background & Feature Selection",
     content: (
-      <div className="grid grid-cols-2 gap-8">
+      <div className="space-y-8">
+        <Card className="p-6 bg-primary/5 border-primary/20">
+          <h3 className="text-lg font-semibold mb-4 text-primary">Personal Experience</h3>
+          <p className="text-muted-foreground text-lg">
+            As a former special education teacher, I experienced firsthand how time-consuming creating
+            materials and writing lesson plans can be. This is a major pain point for teachers that
+            SuperSummary is uniquely positioned to solve.
+          </p>
+        </Card>
+
         <div>
-          <h3 className="text-lg font-semibold mb-4 text-primary">Value to SuperSummary Users</h3>
-          <ul className="space-y-3">
-            <li className="flex items-start">
-              <span className="text-primary mr-2">•</span>
-              <div>
-                <strong>Saves Time:</strong> Reduces lesson planning from hours to minutes
-              </div>
-            </li>
-            <li className="flex items-start">
-              <span className="text-primary mr-2">•</span>
-              <div>
-                <strong>Standards-Aligned:</strong> Automatically incorporates Common Core standards
-              </div>
-            </li>
-            <li className="flex items-start">
-              <span className="text-primary mr-2">•</span>
-              <div>
-                <strong>Differentiated:</strong> Generates activities for multiple learning levels
-              </div>
-            </li>
-            <li className="flex items-start">
-              <span className="text-primary mr-2">•</span>
-              <div>
-                <strong>Assessment-Ready:</strong> Includes formative and summative assessments
-              </div>
-            </li>
-          </ul>
-        </div>
-        <div>
-          <h3 className="text-lg font-semibold mb-4 text-primary">Business Value to SuperSummary</h3>
-          <ul className="space-y-3">
-            <li className="flex items-start">
-              <span className="text-primary mr-2">•</span>
-              <div>
-                <strong>Premium Feature:</strong> Justifies teacher/institutional subscriptions
-              </div>
-            </li>
-            <li className="flex items-start">
-              <span className="text-primary mr-2">•</span>
-              <div>
-                <strong>Market Differentiation:</strong> Unique offering vs. competitors
-              </div>
-            </li>
-            <li className="flex items-start">
-              <span className="text-primary mr-2">•</span>
-              <div>
-                <strong>Increased Engagement:</strong> Deeper platform usage and retention
-              </div>
-            </li>
-            <li className="flex items-start">
-              <span className="text-primary mr-2">•</span>
-              <div>
-                <strong>Data Insights:</strong> Understanding educator needs and usage patterns
-              </div>
-            </li>
-          </ul>
+          <h3 className="text-lg font-semibold mb-4">Value Proposition</h3>
+          <div className="space-y-3 text-lg">
+            <div className="flex items-start">
+              <span className="text-primary mr-3 text-xl">•</span>
+              <p><strong>Saves Hours:</strong> Transforms lesson planning from hours to minutes</p>
+            </div>
+            <div className="flex items-start">
+              <span className="text-primary mr-3 text-xl">•</span>
+              <p><strong>Growth Tool:</strong> Can be offered free to bring more teachers into the platform</p>
+            </div>
+            <div className="flex items-start">
+              <span className="text-primary mr-3 text-xl">•</span>
+              <p><strong>Extensible:</strong> Easily built out to include state standards, custom templates, and differentiation tools</p>
+            </div>
+          </div>
         </div>
       </div>
     ),
   },
   {
-    title: "Output Analysis: Strengths",
-    subtitle: "What the AI Does Well",
+    title: "What the AI Does Well",
+    subtitle: "Output Analysis: Strengths",
     content: (
       <div className="space-y-6">
-        <Card className="p-6 bg-primary/5 border-primary/20">
-          <h3 className="text-lg font-semibold mb-3 flex items-center">
-            <span className="text-2xl mr-2">✓</span>
+        <Card className="p-8 bg-primary/5 border-primary/20">
+          <h3 className="text-xl font-semibold mb-4 flex items-center">
+            <span className="text-3xl mr-3">✓</span>
             Comprehensive Structure
           </h3>
-          <p className="text-muted-foreground">
-            AI consistently generates well-organized lesson plans with clear learning objectives,
-            activities, and assessments aligned to educational best practices.
+          <p className="text-lg text-muted-foreground">
+            Generates well-organized lesson plans with clear objectives, activities, and assessments
+            aligned to educational best practices.
           </p>
         </Card>
 
-        <Card className="p-6 bg-primary/5 border-primary/20">
-          <h3 className="text-lg font-semibold mb-3 flex items-center">
-            <span className="text-2xl mr-2">✓</span>
+        <Card className="p-8 bg-primary/5 border-primary/20">
+          <h3 className="text-xl font-semibold mb-4 flex items-center">
+            <span className="text-3xl mr-3">✓</span>
             Content Accuracy
           </h3>
-          <p className="text-muted-foreground">
-            Generated content accurately reflects the source material from SuperSummary guides,
-            maintaining fidelity to themes, characters, and literary elements.
+          <p className="text-lg text-muted-foreground">
+            Accurately reflects SuperSummary source material, maintaining fidelity to themes,
+            characters, and literary elements.
           </p>
         </Card>
 
-        <Card className="p-6 bg-primary/5 border-primary/20">
-          <h3 className="text-lg font-semibold mb-3 flex items-center">
-            <span className="text-2xl mr-2">✓</span>
+        <Card className="p-8 bg-primary/5 border-primary/20">
+          <h3 className="text-xl font-semibold mb-4 flex items-center">
+            <span className="text-3xl mr-3">✓</span>
             Pedagogical Quality
           </h3>
-          <p className="text-muted-foreground">
-            Activities incorporate varied instructional strategies (think-pair-share, gallery walks,
-            Socratic seminars) and Bloom's Taxonomy levels for cognitive engagement.
-          </p>
-        </Card>
-
-        <Card className="p-6 bg-primary/5 border-primary/20">
-          <h3 className="text-lg font-semibold mb-3 flex items-center">
-            <span className="text-2xl mr-2">✓</span>
-            Model Consistency
-          </h3>
-          <p className="text-muted-foreground">
-            All three AI models (Grok, Claude, Gemini) produce similar quality output,
-            demonstrating robust prompt engineering.
+          <p className="text-lg text-muted-foreground">
+            Incorporates varied instructional strategies and Bloom's Taxonomy levels for
+            effective cognitive engagement.
           </p>
         </Card>
       </div>
     ),
   },
   {
-    title: "Output Analysis: Limitations",
-    subtitle: "Areas for Improvement",
+    title: "Areas for Improvement",
+    subtitle: "Output Analysis: Limitations",
     content: (
       <div className="space-y-6">
-        <Card className="p-6 bg-orange-500/5 border-orange-500/20">
-          <h3 className="text-lg font-semibold mb-3 flex items-center text-orange-600 dark:text-orange-400">
-            <span className="text-2xl mr-2">⚠</span>
+        <Card className="p-8 bg-orange-500/5 border-orange-500/20">
+          <h3 className="text-xl font-semibold mb-4 flex items-center text-orange-600 dark:text-orange-400">
+            <span className="text-3xl mr-3">⚠</span>
             Context Awareness
           </h3>
-          <p className="text-muted-foreground">
-            AI lacks awareness of classroom realities (class size, student demographics,
-            available resources) and generates generic time allocations without considering practical constraints.
+          <p className="text-lg text-muted-foreground">
+            Lacks awareness of classroom realities—class size, student demographics, and
+            available resources need to be factored in.
           </p>
         </Card>
 
-        <Card className="p-6 bg-orange-500/5 border-orange-500/20">
-          <h3 className="text-lg font-semibold mb-3 flex items-center text-orange-600 dark:text-orange-400">
-            <span className="text-2xl mr-2">⚠</span>
+        <Card className="p-8 bg-orange-500/5 border-orange-500/20">
+          <h3 className="text-xl font-semibold mb-4 flex items-center text-orange-600 dark:text-orange-400">
+            <span className="text-3xl mr-3">⚠</span>
             Differentiation Depth
           </h3>
-          <p className="text-muted-foreground">
-            While differentiation is mentioned, specific scaffolds for ELL, special education,
-            or gifted students need more detailed, actionable strategies.
+          <p className="text-lg text-muted-foreground">
+            Specific scaffolds for ELL, special education, and gifted students need more
+            detailed, actionable strategies.
           </p>
         </Card>
 
-        <Card className="p-6 bg-orange-500/5 border-orange-500/20">
-          <h3 className="text-lg font-semibold mb-3 flex items-center text-orange-600 dark:text-orange-400">
-            <span className="text-2xl mr-2">⚠</span>
+        <Card className="p-8 bg-orange-500/5 border-orange-500/20">
+          <h3 className="text-xl font-semibold mb-4 flex items-center text-orange-600 dark:text-orange-400">
+            <span className="text-3xl mr-3">⚠</span>
             Assessment Specificity
           </h3>
-          <p className="text-muted-foreground">
-            Assessment suggestions are broad. Teachers would benefit from specific rubrics,
-            sample questions, and clear success criteria.
-          </p>
-        </Card>
-
-        <Card className="p-6 bg-orange-500/5 border-orange-500/20">
-          <h3 className="text-lg font-semibold mb-3 flex items-center text-orange-600 dark:text-orange-400">
-            <span className="text-2xl mr-2">⚠</span>
-            Creative Variability
-          </h3>
-          <p className="text-muted-foreground">
-            Repeated generations can produce similar activities. More randomization or
-            teacher preferences could increase variety.
+          <p className="text-lg text-muted-foreground">
+            Would benefit from specific rubrics, sample questions, and clear success criteria
+            rather than broad suggestions.
           </p>
         </Card>
       </div>
     ),
   },
   {
-    title: "Technical Implementation",
-    subtitle: "System Architecture & Features",
+    title: "Next Steps to Production",
+    subtitle: "Building a Market-Ready Product",
     content: (
-      <div className="grid grid-cols-2 gap-8">
+      <div className="space-y-8">
         <div>
-          <h3 className="text-lg font-semibold mb-4 text-primary">Core Features Built</h3>
-          <ul className="space-y-3">
-            <li className="flex items-start">
-              <span className="text-primary mr-2">✓</span>
+          <h3 className="text-xl font-semibold mb-6 text-primary">Strategic Approach</h3>
+          <div className="space-y-4 text-lg">
+            <div className="flex items-start">
+              <span className="text-primary mr-3 text-2xl">1.</span>
               <div>
-                <strong>MCP Integration:</strong> PostHog analytics for usage tracking
+                <strong>Start Regional:</strong> Target New York State first—leverage local teacher
+                network for testing and feedback, align with NY standards
               </div>
-            </li>
-            <li className="flex items-start">
-              <span className="text-primary mr-2">✓</span>
-              <div>
-                <strong>Multi-Model Support:</strong> Grok, Claude Sonnet, Gemini Flash
-              </div>
-            </li>
-            <li className="flex items-start">
-              <span className="text-primary mr-2">✓</span>
-              <div>
-                <strong>Prompt Testing:</strong> CRUD interface for rapid iteration
-              </div>
-            </li>
-            <li className="flex items-start">
-              <span className="text-primary mr-2">✓</span>
-              <div>
-                <strong>Version Control:</strong> Track and compare prompt iterations
-              </div>
-            </li>
-            <li className="flex items-start">
-              <span className="text-primary mr-2">✓</span>
-              <div>
-                <strong>Live Editing:</strong> UI-based prompt modification
-              </div>
-            </li>
-          </ul>
-        </div>
-        <div>
-          <h3 className="text-lg font-semibold mb-4 text-primary">Technical Stack</h3>
-          <Card className="p-4 mb-3">
-            <div className="font-semibold mb-2">Frontend</div>
-            <div className="text-sm text-muted-foreground">
-              Next.js 15, React, TailwindCSS, TypeScript
             </div>
-          </Card>
-          <Card className="p-4 mb-3">
-            <div className="font-semibold mb-2">Backend</div>
-            <div className="text-sm text-muted-foreground">
-              Next.js API Routes, Vercel AI SDK, Drizzle ORM
+            <div className="flex items-start">
+              <span className="text-primary mr-3 text-2xl">2.</span>
+              <div>
+                <strong>Build Templates:</strong> Create customizable lesson plan templates that match
+                common formats teachers already use in their schools
+              </div>
             </div>
-          </Card>
-          <Card className="p-4 mb-3">
-            <div className="font-semibold mb-2">Database</div>
-            <div className="text-sm text-muted-foreground">
-              PostgreSQL with prompt version tracking
+            <div className="flex items-start">
+              <span className="text-primary mr-3 text-2xl">3.</span>
+              <div>
+                <strong>Focus on Differentiation:</strong> Make this the standout feature—robust tools
+                for ELL, special education, and gifted students become the sticky differentiator
+              </div>
             </div>
-          </Card>
-          <Card className="p-4">
-            <div className="font-semibold mb-2">AI Models</div>
-            <div className="text-sm text-muted-foreground">
-              Grok Beta, Claude Sonnet 4, Gemini Flash 2.0
-            </div>
-          </Card>
-        </div>
-      </div>
-    ),
-  },
-  {
-    title: "Next Steps",
-    subtitle: "Roadmap to Production",
-    content: (
-      <div className="space-y-6">
-        <div>
-          <h3 className="text-lg font-semibold mb-4 text-primary">Immediate Refinements</h3>
-          <div className="grid grid-cols-2 gap-4">
-            <Card className="p-4">
-              <h4 className="font-semibold mb-2">Teacher Customization</h4>
-              <ul className="text-sm text-muted-foreground space-y-1">
-                <li>• Class period length input</li>
-                <li>• Grade level specification</li>
-                <li>• Student demographic data</li>
-                <li>• Available resources inventory</li>
-              </ul>
-            </Card>
-            <Card className="p-4">
-              <h4 className="font-semibold mb-2">Enhanced Differentiation</h4>
-              <ul className="text-sm text-muted-foreground space-y-1">
-                <li>• ELL scaffolding templates</li>
-                <li>• IEP accommodation suggestions</li>
-                <li>• Advanced learner extensions</li>
-                <li>• Multiple modality options</li>
-              </ul>
-            </Card>
-            <Card className="p-4">
-              <h4 className="font-semibold mb-2">Assessment Tools</h4>
-              <ul className="text-sm text-muted-foreground space-y-1">
-                <li>• Detailed rubric generation</li>
-                <li>• Example student responses</li>
-                <li>• Formative check questions</li>
-                <li>• Exit ticket suggestions</li>
-              </ul>
-            </Card>
-            <Card className="p-4">
-              <h4 className="font-semibold mb-2">Export Formats</h4>
-              <ul className="text-sm text-muted-foreground space-y-1">
-                <li>• PDF with formatting</li>
-                <li>• Google Docs integration</li>
-                <li>• Editable templates</li>
-                <li>• LMS-ready formats</li>
-              </ul>
-            </Card>
           </div>
         </div>
 
-        <div>
-          <h3 className="text-lg font-semibold mb-4 text-primary">Safety & Quality Safeguards</h3>
-          <div className="grid grid-cols-2 gap-4">
-            <Card className="p-4">
-              <h4 className="font-semibold mb-2">Content Review</h4>
-              <ul className="text-sm text-muted-foreground space-y-1">
-                <li>• Human-in-the-loop validation</li>
-                <li>• Pedagogical expert review</li>
-                <li>• Accuracy verification system</li>
-                <li>• Bias detection checks</li>
-              </ul>
-            </Card>
-            <Card className="p-4">
-              <h4 className="font-semibold mb-2">User Feedback Loop</h4>
-              <ul className="text-sm text-muted-foreground space-y-1">
-                <li>• Rating system for outputs</li>
-                <li>• Teacher edit tracking</li>
-                <li>• Usage analytics</li>
-                <li>• Continuous improvement</li>
-              </ul>
-            </Card>
-            <Card className="p-4">
-              <h4 className="font-semibold mb-2">Performance Monitoring</h4>
-              <ul className="text-sm text-muted-foreground space-y-1">
-                <li>• Response time tracking</li>
-                <li>• Cost per generation</li>
-                <li>• Model comparison metrics</li>
-                <li>• Error rate monitoring</li>
-              </ul>
-            </Card>
-            <Card className="p-4">
-              <h4 className="font-semibold mb-2">Compliance & Privacy</h4>
-              <ul className="text-sm text-muted-foreground space-y-1">
-                <li>• FERPA compliance</li>
-                <li>• Student data protection</li>
-                <li>• Usage terms clarity</li>
-                <li>• Attribution guidelines</li>
-              </ul>
-            </Card>
+        <div className="pt-6 border-t">
+          <h3 className="text-xl font-semibold mb-6 text-primary">Key Safeguards</h3>
+          <div className="space-y-4 text-lg">
+            <div className="flex items-start">
+              <span className="text-primary mr-3">•</span>
+              <p><strong>Teacher Review Loop:</strong> All generated content flagged for teacher review before classroom use</p>
+            </div>
+            <div className="flex items-start">
+              <span className="text-primary mr-3">•</span>
+              <p><strong>Standards Alignment:</strong> Automated verification system ensures generated plans match state standards</p>
+            </div>
+            <div className="flex items-start">
+              <span className="text-primary mr-3">•</span>
+              <p><strong>Quality Metrics:</strong> Track teacher edits and ratings to continuously improve prompt quality</p>
+            </div>
           </div>
         </div>
       </div>
