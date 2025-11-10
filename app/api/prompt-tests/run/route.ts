@@ -22,6 +22,13 @@ const GUIDES = [
 	},
 ];
 
+// Map form model values to actual model IDs
+const MODEL_MAP: Record<string, string> = {
+	grok: "chat-model",
+	claude: "chat-model-claude",
+	gemini: "chat-model-gemini",
+};
+
 export async function POST(request: Request) {
 	const session = await auth();
 
@@ -39,6 +46,9 @@ export async function POST(request: Request) {
 			);
 		}
 
+		// Map the form model value to the actual model ID
+		const actualModelId = MODEL_MAP[model] || model;
+
 		const results = [];
 
 		// Run the prompt against each guide
@@ -52,7 +62,7 @@ export async function POST(request: Request) {
 
 				// Stream the response
 				const { textStream } = streamText({
-					model: myProvider.languageModel(model as any),
+					model: myProvider.languageModel(actualModelId as any),
 					prompt: fullPrompt,
 					temperature: temperature || 0.7,
 				});
