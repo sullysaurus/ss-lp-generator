@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { PlusIcon, VercelIcon } from "./icons";
 import { useSidebar } from "./ui/sidebar";
 import { VisibilitySelector, type VisibilityType } from "./visibility-selector";
+import { Edit2, Presentation } from "lucide-react";
 
 function PureChatHeader({
   chatId,
@@ -50,11 +51,28 @@ function PureChatHeader({
         />
       )}
 
-      <Button
-        asChild
-        className="order-3 hidden bg-zinc-900 px-2 text-zinc-50 hover:bg-zinc-800 md:ml-auto md:flex md:h-fit dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-200"
-      >
-      </Button>
+      <div className="order-3 ml-auto flex gap-2">
+        <Button
+          asChild
+          variant="outline"
+          className="h-8 px-2 md:h-fit md:px-3"
+        >
+          <Link href="/slides">
+            <Presentation className="h-4 w-4 md:mr-2" />
+            <span className="hidden md:inline">Slides</span>
+          </Link>
+        </Button>
+        <Button
+          asChild
+          variant="outline"
+          className="h-8 px-2 md:h-fit md:px-3"
+        >
+          <Link href="/prompts/lesson-plan">
+            <Edit2 className="h-4 w-4 md:mr-2" />
+            <span className="hidden md:inline">Edit Prompts</span>
+          </Link>
+        </Button>
+      </div>
     </header>
   );
 }

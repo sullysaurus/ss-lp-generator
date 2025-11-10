@@ -30,7 +30,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "./ui/alert-dialog";
-import { FileText } from "lucide-react";
+import { FileText, Edit2, Presentation } from "lucide-react";
 
 export function AppSidebar({ user }: { user: User | undefined }) {
   const router = useRouter();
@@ -115,7 +115,7 @@ export function AppSidebar({ user }: { user: User | undefined }) {
         </SidebarHeader>
         <SidebarContent>
           {user && (
-            <div className="px-2 pb-4">
+            <div className="px-2 pb-4 space-y-2">
               <Link href="/prompts" onClick={() => setOpenMobile(false)}>
                 <Button
                   variant="outline"
@@ -124,6 +124,26 @@ export function AppSidebar({ user }: { user: User | undefined }) {
                 >
                   <FileText className="h-4 w-4" />
                   Prompt Tests
+                </Button>
+              </Link>
+              <Link href="/prompts/lesson-plan" onClick={() => setOpenMobile(false)}>
+                <Button
+                  variant="outline"
+                  className="w-full justify-start gap-2"
+                  type="button"
+                >
+                  <Edit2 className="h-4 w-4" />
+                  Edit Prompts
+                </Button>
+              </Link>
+              <Link href="/slides" onClick={() => setOpenMobile(false)}>
+                <Button
+                  variant="outline"
+                  className="w-full justify-start gap-2"
+                  type="button"
+                >
+                  <Presentation className="h-4 w-4" />
+                  Slides
                 </Button>
               </Link>
             </div>
