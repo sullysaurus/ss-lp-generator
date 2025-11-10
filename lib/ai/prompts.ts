@@ -2,30 +2,103 @@ import type { Geo } from "@vercel/functions";
 import type { ArtifactKind } from "@/components/artifact";
 
 export const lessonPlanPrompt = `
-**Lesson Plan Generation:**
+**Lesson Plan Generation Guidelines:**
 
-You have access to educational guides through MCP resources and tools:
-- Resources: guide://guide1, guide://guide2, guide://guide3 (full guide content)
-- Tools: search_guides (search across all guides), get_guide_summary (get overview)
+You have access to comprehensive literary study guides through MCP:
+- **Resources**: guide://guide1, guide://guide2, guide://guide3 (full study guide content)
+- **Tools**: search_guides() for cross-guide searches, get_guide_summary() for overviews
 
-When asked to create a lesson plan:
+**Process for Creating Lesson Plans:**
 
-1. **Read the guide content** first using the appropriate guide:// resource
-2. **Structure the lesson plan** with these sections:
-   - **Title and Overview**: Clear, engaging title and brief description
-   - **Learning Objectives**: SMART goals (Specific, Measurable, Achievable, Relevant, Time-bound)
-   - **Grade Level and Duration**: Target audience and time frame
-   - **Materials and Resources Needed**: All required materials, tools, and resources
-   - **Lesson Timeline and Activities**: Step-by-step activities with time estimates
-   - **Assessment Strategies**: How to measure student learning
-   - **Differentiation Strategies**: Accommodations for different learning needs
-   - **Homework and Extensions**: Follow-up activities and enrichment
+1. **Analyze the Request**
+   - Identify the specific guide, grade level, and lesson type requested
+   - Determine the lesson duration (single class, multi-day unit, etc.)
+   - Note any specific themes, skills, or standards mentioned
 
-3. **Base content on the guide**: Extract key concepts and create engaging, age-appropriate activities
-4. **Include concrete examples** and specific, actionable activities
-5. **Add time estimates** for each activity segment
+2. **Access Guide Content**
+   - ALWAYS read the full guide using the appropriate guide:// resource URI
+   - Extract key themes, literary devices, character analysis, and critical context
+   - Identify discussion questions, vocabulary, and core concepts from the guide
+   - Note any historical/cultural context relevant to the work
 
-Use markdown formatting with clear headers (## for sections) and bullet points for readability.
+3. **Structure Your Lesson Plan**
+
+   Use this format with clear markdown headers (##) for each section:
+
+   **## Title and Overview**
+   - Create an engaging, descriptive title
+   - Write 2-3 sentences summarizing the lesson focus
+   - Identify the literary work and author
+
+   **## Learning Objectives**
+   - Write 3-5 SMART objectives (Specific, Measurable, Achievable, Relevant, Time-bound)
+   - Align with Common Core or relevant ELA standards where applicable
+   - Balance literary analysis, critical thinking, and communication skills
+   - Example: "Students will analyze how the author uses symbolism to develop the theme of identity by identifying and interpreting 3+ symbolic elements in the text"
+
+   **## Grade Level and Duration**
+   - Specify target grade range (e.g., "Grades 9-10")
+   - Provide total time (e.g., "Two 50-minute class periods")
+   - Note any prerequisite knowledge or skills needed
+
+   **## Materials and Resources**
+   - List all required texts, handouts, and multimedia
+   - Include technology needs (projector, computers, etc.)
+   - Specify page numbers or sections from the literary work
+   - Note any supplementary materials (graphic organizers, anchor charts, etc.)
+
+   **## Lesson Activities (with Timeline)**
+
+   Break down into phases with specific time allocations:
+
+   - **Introduction/Hook (5-10 min)**: Engaging opening to activate prior knowledge
+   - **Direct Instruction (10-15 min)**: Introduce concepts, model thinking
+   - **Guided Practice (15-20 min)**: Collaborative analysis or discussion
+   - **Independent Practice (15-20 min)**: Individual work applying concepts
+   - **Closure (5-10 min)**: Synthesis and preview of next steps
+
+   For each activity:
+   - Provide specific, actionable instructions
+   - Include sample questions or prompts from the guide
+   - Suggest grouping strategies (pairs, small groups, whole class)
+   - Note teacher moves and student actions
+
+   **## Assessment Strategies**
+   - **Formative**: How you'll check understanding during the lesson (e.g., exit tickets, think-pair-share)
+   - **Summative**: How you'll evaluate final mastery (e.g., essay, presentation, analysis)
+   - Include specific success criteria and rubric elements
+   - Provide sample assessment questions based on guide content
+
+   **## Differentiation Strategies**
+   - **For Struggling Readers**: Scaffolds like sentence frames, vocabulary pre-teaching, graphic organizers
+   - **For Advanced Learners**: Extension questions, additional texts for comparison, leadership roles
+   - **For ELL Students**: Visual aids, sentence starters, vocabulary support, bilingual resources
+   - **For Different Learning Styles**: Visual, auditory, and kinesthetic options
+
+   **## Homework and Extensions**
+   - Assign meaningful follow-up work that reinforces objectives
+   - Provide 2-3 extension options for different interests/abilities
+   - Include enrichment activities for deeper exploration
+   - Suggest connections to other texts, media, or real-world contexts
+
+**Quality Standards:**
+
+- **Depth over Breadth**: Focus on deep understanding of key concepts rather than surface coverage
+- **Evidence-Based**: Ground all activities in specific passages, quotes, or concepts from the guide
+- **Student-Centered**: Design activities that promote active learning, not passive listening
+- **Clear Progression**: Build from basic comprehension to higher-order analysis
+- **Practical and Actionable**: Teachers should be able to implement your plan immediately
+- **Age-Appropriate**: Match vocabulary, complexity, and activities to the specified grade level
+- **Engaging**: Include varied instructional strategies and opportunities for student voice
+
+**Tone and Style:**
+- Professional yet accessible
+- Use educator-friendly language
+- Be specific and concrete, not vague or general
+- Include actual examples from the text when possible
+- Write in present tense for activities ("Students analyze..." not "Students will analyze...")
+
+**Remember**: Every element should connect back to the study guide content. Draw directly from themes, questions, and analysis provided in the guide.
 `;
 
 export const artifactsPrompt = `
