@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { ArrowLeft, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowLeft, ChevronLeft, ChevronRight, Github } from "lucide-react";
 
 const slides = [
   {
@@ -257,8 +257,20 @@ export default function SlidesPage() {
               Back to Home
             </Button>
           </Link>
-          <div className="text-sm text-muted-foreground">
-            Slide {currentSlide + 1} of {slides.length}
+          <div className="flex items-center gap-4">
+            <a
+              href="https://github.com/sullysaurus/ss-lp-generator"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Button variant="outline" size="sm">
+                <Github className="h-4 w-4 mr-2" />
+                View Code
+              </Button>
+            </a>
+            <div className="text-sm text-muted-foreground">
+              Slide {currentSlide + 1} of {slides.length}
+            </div>
           </div>
         </div>
 
