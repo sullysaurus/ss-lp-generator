@@ -75,7 +75,7 @@ export const Greeting = () => {
         initial={{ opacity: 0, y: 10 }}
         transition={{ delay: 0.8 }}
       >
-        Choose from guides by Kate Chopin, bell hooks, and Jonathan Franzen
+        To see what guides I have access to just ask!
       </motion.div>
     </div>
   );
