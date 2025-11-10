@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Edit } from "lucide-react";
 import type { PromptTest } from "@/lib/db/schema";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 type PromptTestViewProps = {
   test: PromptTest;
@@ -87,8 +89,10 @@ export function PromptTestView({ test, onEdit }: PromptTestViewProps) {
                   </span>
                   {GUIDE_NAMES[key]}
                 </h3>
-                <div className="bg-muted/30 p-4 rounded-lg">
-                  <pre className="text-sm whitespace-pre-wrap">{output}</pre>
+                <div className="bg-muted/30 p-4 rounded-lg prose prose-sm max-w-none dark:prose-invert">
+                  <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                    {output}
+                  </ReactMarkdown>
                 </div>
               </Card>
             );
@@ -109,8 +113,10 @@ export function PromptTestView({ test, onEdit }: PromptTestViewProps) {
       {test.commentary && (
         <Card className="p-4">
           <h2 className="font-semibold mb-3">Commentary & Notes</h2>
-          <div className="prose prose-sm max-w-none">
-            <p className="whitespace-pre-wrap">{test.commentary}</p>
+          <div className="prose prose-sm max-w-none dark:prose-invert">
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>
+              {test.commentary}
+            </ReactMarkdown>
           </div>
         </Card>
       )}

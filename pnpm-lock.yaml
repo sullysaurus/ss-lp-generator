@@ -185,6 +185,9 @@ importers:
       react-dom:
         specifier: 19.0.0-rc-45804af1-20241021
         version: 19.0.0-rc-45804af1-20241021(react@19.0.0-rc-45804af1-20241021)
+      react-markdown:
+        specifier: ^10.1.0
+        version: 10.1.0(@types/react@18.3.26)(react@19.0.0-rc-45804af1-20241021)
       react-resizable-panels:
         specifier: ^2.1.7
         version: 2.1.9(react-dom@19.0.0-rc-45804af1-20241021)(react@19.0.0-rc-45804af1-20241021)
@@ -194,6 +197,9 @@ importers:
       redis:
         specifier: ^5.0.0
         version: 5.9.0
+      remark-gfm:
+        specifier: ^4.0.1
+        version: 4.0.1
       resumable-stream:
         specifier: ^2.0.0
         version: 2.2.8

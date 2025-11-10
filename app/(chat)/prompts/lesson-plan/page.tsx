@@ -15,7 +15,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { ArrowLeft, Copy, Check, Save, History, Eye, Edit2, CheckCircle, RotateCcw } from "lucide-react";
+import { ArrowLeft, Copy, Check, Save, History, Eye, Edit2, CheckCircle, RotateCcw, Trash2, Github } from "lucide-react";
 
 type PromptVersion = {
   id: string;
@@ -45,6 +45,9 @@ export default function LessonPlanPromptPage() {
     notes: "",
     setActive: true,
   });
+
+  const [editingVersion, setEditingVersion] = useState<PromptVersion | null>(null);
+  const [showEditDialog, setShowEditDialog] = useState(false);
 
   useEffect(() => {
     fetchPrompt();
@@ -169,6 +172,62 @@ export default function LessonPlanPromptPage() {
     }
   };
 
+  const handleEditVersion = (version: PromptVersion) => {
+    setEditingVersion(version);
+    setShowEditDialog(true);
+    setShowVersionDialog(false);
+  };
+
+  const handleSaveEditedVersion = async () => {
+    if (!editingVersion) return;
+
+    try {
+      const response = await fetch(`/api/prompt-versions/${editingVersion.id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          notes: editingVersion.notes,
+        }),
+      });
+
+      if (response.ok) {
+        await fetchVersions();
+        setShowEditDialog(false);
+        setEditingVersion(null);
+        alert("Version updated successfully!");
+      } else {
+        alert("Failed to update version");
+      }
+    } catch (error) {
+      console.error("Error updating version:", error);
+      alert("Error updating version");
+    }
+  };
+
+  const handleDeleteVersion = async (versionId: string) => {
+    if (!confirm("Are you sure you want to delete this version?")) {
+      return;
+    }
+
+    try {
+      const response = await fetch(`/api/prompt-versions/${versionId}`, {
+        method: "DELETE",
+      });
+
+      if (response.ok) {
+        await fetchPrompt();
+        await fetchVersions();
+        setShowVersionDialog(false);
+        alert("Version deleted successfully!");
+      } else {
+        alert("Failed to delete version");
+      }
+    } catch (error) {
+      console.error("Error deleting version:", error);
+      alert("Error deleting version");
+    }
+  };
+
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
@@ -203,6 +262,16 @@ export default function LessonPlanPromptPage() {
             </p>
           </div>
           <div className="flex gap-2">
+            <a
+              href="https://github.com/sullysaurus/ss-lp-generator"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Button variant="outline" size="sm">
+                <Github className="h-4 w-4 mr-2" />
+                View Code
+              </Button>
+            </a>
             {!isEditing ? (
               <>
                 <Button onClick={handleEdit} variant="default">
@@ -407,31 +476,92 @@ export default function LessonPlanPromptPage() {
               </Card>
             </div>
           </div>
-          <DialogFooter>
-            {!selectedVersion?.isActive && (
+          <DialogFooter className="flex justify-between">
+            <div className="flex gap-2">
               <Button
-                variant="default"
-                onClick={() => selectedVersion && handleMakeActive(selectedVersion.id)}
+                variant="outline"
+                onClick={() => selectedVersion && handleEditVersion(selectedVersion)}
               >
-                <CheckCircle className="h-4 w-4 mr-2" />
-                Set as Active
+                <Edit2 className="h-4 w-4 mr-2" />
+                Edit Notes
               </Button>
-            )}
+              <Button
+                variant="outline"
+                onClick={() => selectedVersion && handleDeleteVersion(selectedVersion.id)}
+                className="text-destructive hover:text-destructive"
+              >
+                <Trash2 className="h-4 w-4 mr-2" />
+                Delete
+              </Button>
+            </div>
+            <div className="flex gap-2">
+              {!selectedVersion?.isActive && (
+                <Button
+                  variant="default"
+                  onClick={() => selectedVersion && handleMakeActive(selectedVersion.id)}
+                >
+                  <CheckCircle className="h-4 w-4 mr-2" />
+                  Set as Active
+                </Button>
+              )}
+              <Button
+                variant="outline"
+                onClick={() => {
+                  if (selectedVersion) {
+                    navigator.clipboard.writeText(selectedVersion.prompt);
+                    alert("Prompt copied to clipboard!");
+                  }
+                }}
+              >
+                <Copy className="h-4 w-4 mr-2" />
+                Copy Prompt
+              </Button>
+              <Button onClick={() => setShowVersionDialog(false)}>
+                Close
+              </Button>
+            </div>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Edit Version Dialog */}
+      <Dialog open={showEditDialog} onOpenChange={setShowEditDialog}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Edit Version Notes</DialogTitle>
+            <DialogDescription>
+              Update the notes for version: {editingVersion?.version}
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4">
+            <div className="grid gap-2">
+              <Label htmlFor="editNotes">Notes</Label>
+              <Textarea
+                id="editNotes"
+                value={editingVersion?.notes || ""}
+                onChange={(e) =>
+                  setEditingVersion(
+                    editingVersion
+                      ? { ...editingVersion, notes: e.target.value }
+                      : null
+                  )
+                }
+                placeholder="Update notes about this version..."
+                className="min-h-[150px]"
+              />
+            </div>
+          </div>
+          <DialogFooter>
             <Button
               variant="outline"
               onClick={() => {
-                if (selectedVersion) {
-                  navigator.clipboard.writeText(selectedVersion.prompt);
-                  alert("Prompt copied to clipboard!");
-                }
+                setShowEditDialog(false);
+                setEditingVersion(null);
               }}
             >
-              <Copy className="h-4 w-4 mr-2" />
-              Copy Prompt
+              Cancel
             </Button>
-            <Button onClick={() => setShowVersionDialog(false)}>
-              Close
-            </Button>
+            <Button onClick={handleSaveEditedVersion}>Save Changes</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
