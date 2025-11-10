@@ -377,7 +377,13 @@ export function PromptTestForm({ test, onClose }: PromptTestFormProps) {
               Cancel
             </Button>
             <Button type="submit" disabled={loading}>
-              {loading ? "Saving..." : test ? "Update Test" : "Create Test"}
+              {loading
+                ? "Saving..."
+                : test
+                  ? "Update Test"
+                  : formData.guide1Output || formData.guide2Output || formData.guide3Output
+                    ? "Save Test"
+                    : "Create Test"}
             </Button>
           </DialogFooter>
         </form>
