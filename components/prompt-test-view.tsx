@@ -47,7 +47,7 @@ export function PromptTestView({ test, onEdit }: PromptTestViewProps) {
       {test.settings && (
         <Card className="p-4">
           <h2 className="font-semibold mb-3">Settings & Parameters</h2>
-          <div className="grid grid-cols-2 gap-4 text-sm">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm">
             {test.settings.temperature !== undefined && (
               <div>
                 <span className="text-muted-foreground">Temperature:</span>{" "}
@@ -58,6 +58,24 @@ export function PromptTestView({ test, onEdit }: PromptTestViewProps) {
               <div>
                 <span className="text-muted-foreground">Max Tokens:</span>{" "}
                 <span className="font-medium">{test.settings.maxTokens}</span>
+              </div>
+            )}
+            {test.settings.topP !== undefined && (
+              <div>
+                <span className="text-muted-foreground">Top P:</span>{" "}
+                <span className="font-medium">{test.settings.topP}</span>
+              </div>
+            )}
+            {test.settings.frequencyPenalty !== undefined && (
+              <div>
+                <span className="text-muted-foreground">Frequency Penalty:</span>{" "}
+                <span className="font-medium">{test.settings.frequencyPenalty}</span>
+              </div>
+            )}
+            {test.settings.presencePenalty !== undefined && (
+              <div>
+                <span className="text-muted-foreground">Presence Penalty:</span>{" "}
+                <span className="font-medium">{test.settings.presencePenalty}</span>
               </div>
             )}
           </div>

@@ -155,6 +155,51 @@ const slides = [
     ),
   },
   {
+    title: "Model Performance Comparison",
+    subtitle: "Cost & Speed Analysis",
+    content: (
+      <div className="space-y-6">
+        <div className="bg-primary/5 border border-primary/20 rounded-lg p-6">
+          <h3 className="text-lg font-semibold mb-4">Claude Sonnet 4.5 vs Gemini 2.0 Flash</h3>
+          <p className="text-muted-foreground mb-4">
+            Real-world performance data from generating lesson plans across multiple guides
+          </p>
+          <img
+            src="/images/models.png"
+            alt="Model comparison showing cost and speed metrics"
+            className="w-full rounded-lg border border-border"
+          />
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <Card className="p-6 bg-blue-500/5 border-blue-500/20">
+            <h4 className="font-semibold mb-2 text-blue-600 dark:text-blue-400">Claude Sonnet 4.5</h4>
+            <ul className="text-sm space-y-2">
+              <li>• <strong>Cost:</strong> $0.06 - $0.14 per generation</li>
+              <li>• <strong>Speed:</strong> ~1-2 minutes</li>
+              <li>• <strong>Quality:</strong> Highest accuracy, best structure</li>
+              <li>• <strong>Best for:</strong> Production lesson plans</li>
+            </ul>
+          </Card>
+
+          <Card className="p-6 bg-green-500/5 border-green-500/20">
+            <h4 className="font-semibold mb-2 text-green-600 dark:text-green-400">Gemini 2.0 Flash</h4>
+            <ul className="text-sm space-y-2">
+              <li>• <strong>Cost:</strong> $0.002 - $0.003 per generation</li>
+              <li>• <strong>Speed:</strong> ~15-17 seconds</li>
+              <li>• <strong>Quality:</strong> Good, more concise</li>
+              <li>• <strong>Best for:</strong> Rapid prototyping, drafts</li>
+            </ul>
+          </Card>
+        </div>
+
+        <p className="text-sm text-muted-foreground text-center italic">
+          💡 Tip: Use Gemini for quick iterations and Claude for final production-ready plans
+        </p>
+      </div>
+    ),
+  },
+  {
     title: "Next Steps to Production",
     subtitle: "Building a Market-Ready Product",
     content: (
