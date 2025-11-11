@@ -8,6 +8,9 @@ export const isTestEnvironment = Boolean(
     process.env.CI_PLAYWRIGHT
 );
 
+// Demo mode - use mock responses instead of real AI API calls
+export const isDemoMode = process.env.NEXT_PUBLIC_DEMO_MODE === "true";
+
 export const guestRegex = /^guest-\d+$/;
 
 export const DUMMY_PASSWORD = generateDummyPassword();

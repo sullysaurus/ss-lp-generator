@@ -31,7 +31,9 @@ import {
 	searchGuidesTool,
 } from "@/lib/ai/tools/search-guides";
 import { updateDocument } from "@/lib/ai/tools/update-document";
-import { isProductionEnvironment } from "@/lib/constants";
+import { isProductionEnvironment, isDemoMode } from "@/lib/constants";
+import { createDemoStream } from "@/lib/demo/demo-chat";
+import { MOCK_LESSON_PLAN } from "@/lib/demo/mock-data";
 import {
   createStreamId,
   deleteChatById,
@@ -176,6 +178,39 @@ export async function POST(request: Request) {
         },
       ],
     });
+
+    // Demo mode: Return mock response immediately without AI API calls
+    if (isDemoMode) {
+      const messageId = generateUUID();
+
+      // Save the mock response to the database
+      await saveMessages({
+        messages: [
+          {
+            id: messageId,
+            role: "assistant",
+            parts: [
+              {
+                type: "text",
+                text: MOCK_LESSON_PLAN,
+              },
+            ],
+            createdAt: new Date(),
+            attachments: [],
+            chatId: id,
+          },
+        ],
+      });
+
+      // Return a simple streaming response
+      return new Response(createDemoStream(MOCK_LESSON_PLAN), {
+        headers: {
+          "Content-Type": "text/event-stream",
+          "Cache-Control": "no-cache",
+          Connection: "keep-alive",
+        },
+      });
+    }
 
     const streamId = generateUUID();
     await createStreamId({ streamId, chatId: id });
