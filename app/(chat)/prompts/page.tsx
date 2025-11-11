@@ -15,7 +15,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { ArrowLeft, Copy, Check, Save, History, Eye, Edit2, CheckCircle, RotateCcw, Trash2, Github } from "lucide-react";
+import { ArrowLeft, Copy, Check, Save, History, Eye, Edit2, CheckCircle, Trash2, Github } from "lucide-react";
 
 type PromptVersion = {
   id: string;
@@ -28,11 +28,10 @@ type PromptVersion = {
 
 export default function LessonPlanPromptPage() {
   const [prompt, setPrompt] = useState("");
-  const [editedPrompt, setEditedPrompt] = useState("");
   const [loading, setLoading] = useState(true);
   const [copied, setCopied] = useState(false);
-  const [isEditing, setIsEditing] = useState(false);
-  const [showSaveDialog, setShowSaveDialog] = useState(false);
+  const [showCreateDialog, setShowCreateDialog] = useState(false);
+  const [newPromptContent, setNewPromptContent] = useState("");
   const [saving, setSaving] = useState(false);
   const [versions, setVersions] = useState<PromptVersion[]>([]);
   const [selectedVersion, setSelectedVersion] = useState<PromptVersion | null>(null);
@@ -41,7 +40,6 @@ export default function LessonPlanPromptPage() {
   const [versionName, setVersionName] = useState<string | null>(null);
 
   const [saveFormData, setSaveFormData] = useState({
-    version: "",
     notes: "",
     setActive: true,
   });
@@ -60,7 +58,6 @@ export default function LessonPlanPromptPage() {
       if (response.ok) {
         const data = await response.json();
         setPrompt(data.prompt);
-        setEditedPrompt(data.prompt);
         setIsCustom(data.isCustom);
         setVersionName(data.versionName);
       }
@@ -85,7 +82,7 @@ export default function LessonPlanPromptPage() {
 
   const handleCopy = async () => {
     try {
-      await navigator.clipboard.writeText(isEditing ? editedPrompt : prompt);
+      await navigator.clipboard.writeText(prompt);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch (error) {
@@ -94,46 +91,48 @@ export default function LessonPlanPromptPage() {
     }
   };
 
-  const handleEdit = () => {
-    setEditedPrompt(prompt);
-    setIsEditing(true);
+  const getNextVersionNumber = () => {
+    if (versions.length === 0) return "v1";
+
+    // Find the highest version number
+    const versionNumbers = versions
+      .map(v => {
+        const match = v.version.match(/^v(\d+)/);
+        return match ? parseInt(match[1]) : 0;
+      })
+      .filter(n => n > 0);
+
+    const maxVersion = versionNumbers.length > 0 ? Math.max(...versionNumbers) : 0;
+    return `v${maxVersion + 1}`;
   };
 
-  const handleCancelEdit = () => {
-    setEditedPrompt(prompt);
-    setIsEditing(false);
+  const handleCreateNewVersion = () => {
+    setNewPromptContent(prompt);
+    setShowCreateDialog(true);
   };
 
-  const handleSaveClick = () => {
-    setShowSaveDialog(true);
-  };
-
-  const handleSaveVersion = async () => {
-    if (!saveFormData.version.trim()) {
-      alert("Please enter a version name");
-      return;
-    }
-
+  const handleSaveNewVersion = async () => {
     setSaving(true);
     try {
+      const nextVersion = getNextVersionNumber();
       const response = await fetch("/api/prompt-versions", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          version: saveFormData.version,
-          prompt: editedPrompt,
+          version: nextVersion,
+          prompt: newPromptContent,
           notes: saveFormData.notes || null,
           isActive: saveFormData.setActive,
         }),
       });
 
       if (response.ok) {
-        setShowSaveDialog(false);
-        setSaveFormData({ version: "", notes: "", setActive: true });
-        setIsEditing(false);
+        setShowCreateDialog(false);
+        setSaveFormData({ notes: "", setActive: true });
+        setNewPromptContent("");
         await fetchPrompt();
         await fetchVersions();
-        alert("Prompt version saved successfully!");
+        alert(`Version ${nextVersion} saved successfully!`);
       } else {
         alert("Failed to save prompt version");
       }
@@ -272,38 +271,23 @@ export default function LessonPlanPromptPage() {
                 View Code
               </Button>
             </a>
-            {!isEditing ? (
-              <>
-                <Button onClick={handleEdit} variant="default">
-                  <Edit2 className="h-4 w-4 mr-2" />
-                  Edit Prompt
-                </Button>
-                <Button onClick={handleCopy} variant="outline">
-                  {copied ? (
-                    <>
-                      <Check className="h-4 w-4 mr-2" />
-                      Copied!
-                    </>
-                  ) : (
-                    <>
-                      <Copy className="h-4 w-4 mr-2" />
-                      Copy
-                    </>
-                  )}
-                </Button>
-              </>
-            ) : (
-              <>
-                <Button onClick={handleSaveClick} variant="default">
-                  <Save className="h-4 w-4 mr-2" />
-                  Save & Set Active
-                </Button>
-                <Button onClick={handleCancelEdit} variant="outline">
-                  <RotateCcw className="h-4 w-4 mr-2" />
-                  Cancel
-                </Button>
-              </>
-            )}
+            <Button onClick={handleCreateNewVersion} variant="default">
+              <Save className="h-4 w-4 mr-2" />
+              Create New Version
+            </Button>
+            <Button onClick={handleCopy} variant="outline">
+              {copied ? (
+                <>
+                  <Check className="h-4 w-4 mr-2" />
+                  Copied!
+                </>
+              ) : (
+                <>
+                  <Copy className="h-4 w-4 mr-2" />
+                  Copy
+                </>
+              )}
+            </Button>
           </div>
         </div>
       </div>
@@ -312,20 +296,10 @@ export default function LessonPlanPromptPage() {
         {/* Current Prompt */}
         <div className="lg:col-span-2">
           <Card className="p-6">
-            <h3 className="font-semibold mb-3">
-              {isEditing ? "Edit Prompt" : "Current Prompt"}
-            </h3>
-            {isEditing ? (
-              <Textarea
-                value={editedPrompt}
-                onChange={(e) => setEditedPrompt(e.target.value)}
-                className="min-h-[600px] font-mono text-sm"
-              />
-            ) : (
-              <pre className="whitespace-pre-wrap font-mono text-sm leading-relaxed max-h-[600px] overflow-y-auto">
-                {prompt}
-              </pre>
-            )}
+            <h3 className="font-semibold mb-3">Current Prompt</h3>
+            <pre className="whitespace-pre-wrap font-mono text-sm leading-relaxed max-h-[600px] overflow-y-auto">
+              {prompt}
+            </pre>
           </Card>
         </div>
 
@@ -379,36 +353,35 @@ export default function LessonPlanPromptPage() {
         </div>
       </div>
 
-      {/* Save Version Dialog */}
-      <Dialog open={showSaveDialog} onOpenChange={setShowSaveDialog}>
-        <DialogContent>
+      {/* Create New Version Dialog */}
+      <Dialog open={showCreateDialog} onOpenChange={setShowCreateDialog}>
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle>Save Prompt Version</DialogTitle>
+            <DialogTitle>Create New Version: {getNextVersionNumber()}</DialogTitle>
             <DialogDescription>
-              Save your edited prompt as a new version.
+              Edit the prompt and save it as a new version. This will be automatically named {getNextVersionNumber()}.
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4">
             <div className="grid gap-2">
-              <Label htmlFor="version">Version Name *</Label>
-              <Input
-                id="version"
-                value={saveFormData.version}
-                onChange={(e) =>
-                  setSaveFormData({ ...saveFormData, version: e.target.value })
-                }
-                placeholder="e.g., v1, v2, final"
+              <Label htmlFor="newPrompt">Prompt Content</Label>
+              <Textarea
+                id="newPrompt"
+                value={newPromptContent}
+                onChange={(e) => setNewPromptContent(e.target.value)}
+                className="min-h-[400px] font-mono text-sm"
+                placeholder="Edit your prompt here..."
               />
             </div>
             <div className="grid gap-2">
-              <Label htmlFor="notes">Notes</Label>
+              <Label htmlFor="notes">Notes (Optional)</Label>
               <Textarea
                 id="notes"
                 value={saveFormData.notes}
                 onChange={(e) =>
                   setSaveFormData({ ...saveFormData, notes: e.target.value })
                 }
-                placeholder="What changed in this version..."
+                placeholder="Describe what changed in this version..."
                 className="min-h-[100px]"
               />
             </div>
@@ -430,13 +403,17 @@ export default function LessonPlanPromptPage() {
           <DialogFooter>
             <Button
               variant="outline"
-              onClick={() => setShowSaveDialog(false)}
+              onClick={() => {
+                setShowCreateDialog(false);
+                setNewPromptContent("");
+                setSaveFormData({ notes: "", setActive: true });
+              }}
               disabled={saving}
             >
               Cancel
             </Button>
-            <Button onClick={handleSaveVersion} disabled={saving}>
-              {saving ? "Saving..." : "Save Version"}
+            <Button onClick={handleSaveNewVersion} disabled={saving}>
+              {saving ? "Saving..." : `Create ${getNextVersionNumber()}`}
             </Button>
           </DialogFooter>
         </DialogContent>

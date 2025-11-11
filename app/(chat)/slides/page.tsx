@@ -12,15 +12,9 @@ const slides = [
     subtitle: "Transforming SuperSummary Study Guides into Ready-to-Use Lesson Plans",
     content: (
       <div className="space-y-8">
-        <div className="text-center">
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            An intelligent system that leverages AI to transform SuperSummary study guides
-            into comprehensive lesson plans for educators.
-          </p>
-        </div>
-        <div className="mt-8">
-          <h3 className="text-xl font-semibold mb-6 text-center">Technology Stack</h3>
-          <div className="space-y-4 text-lg max-w-2xl mx-auto">
+        <div>
+          <h3 className="text-xl font-semibold mb-6">Technology Stack</h3>
+          <div className="space-y-4 text-lg max-w-2xl">
             <div className="flex items-start">
               <span className="text-primary mr-3">•</span>
               <p><strong>Frontend:</strong> Next.js 15, React, TypeScript, TailwindCSS</p>
@@ -39,7 +33,7 @@ const slides = [
             </div>
             <div className="flex items-start">
               <span className="text-primary mr-3">•</span>
-              <p><strong>Analytics:</strong> PostHog MCP integration for usage tracking</p>
+              <p><strong>Scalability:</strong> MCP server architecture for efficient context management</p>
             </div>
           </div>
         </div>
