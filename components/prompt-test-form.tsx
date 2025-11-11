@@ -60,7 +60,7 @@ export function PromptTestForm({ test, onClose }: PromptTestFormProps) {
     prompt: test?.prompt || "",
     model: test?.model || "claude",
     temperature: test?.settings?.temperature?.toString() || "0.7",
-    maxTokens: test?.settings?.maxTokens?.toString() || "4096",
+    maxTokens: test?.settings?.maxTokens?.toString() || "4000",
     topP: test?.settings?.topP?.toString() || "0.9",
     frequencyPenalty: test?.settings?.frequencyPenalty?.toString() || "0",
     presencePenalty: test?.settings?.presencePenalty?.toString() || "0",
