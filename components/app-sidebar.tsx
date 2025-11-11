@@ -30,7 +30,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "./ui/alert-dialog";
-import { Edit2, Presentation, FileText } from "lucide-react";
+import { Edit2, Presentation, FileText, Sheet } from "lucide-react";
 import { SiGithub } from "@icons-pack/react-simple-icons";
 
 export function AppSidebar({ user }: { user: User | undefined }) {
@@ -160,6 +160,21 @@ export function AppSidebar({ user }: { user: User | undefined }) {
                 >
                   <SiGithub className="h-4 w-4" />
                   View Code
+                </Button>
+              </a>
+              <a
+                href="https://docs.google.com/spreadsheets/d/1ndbfdm9a7dcDF9lR7Bv0MqpxCOJAGoLpVuAImuKEKsE/edit?usp=sharing"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setOpenMobile(false)}
+              >
+                <Button
+                  variant="outline"
+                  className="w-full justify-start gap-2"
+                  type="button"
+                >
+                  <Sheet className="h-4 w-4" />
+                  Spreadsheet
                 </Button>
               </a>
             </div>
