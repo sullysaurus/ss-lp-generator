@@ -30,7 +30,6 @@ import {
 	getGuideSummaryTool,
 	searchGuidesTool,
 } from "@/lib/ai/tools/search-guides";
-import { getMCPClient } from "@/lib/mcp/client";
 import { updateDocument } from "@/lib/ai/tools/update-document";
 import { isProductionEnvironment } from "@/lib/constants";
 import {
