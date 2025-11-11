@@ -6,14 +6,15 @@ export default function VideoPage() {
 					SuperSummary Demo
 				</h1>
 				<div className="bg-card rounded-lg shadow-lg overflow-hidden">
-					<video
-						controls
-						className="w-full"
-						preload="metadata"
-					>
-						<source src="/SuperSummary.mp4" type="video/mp4" />
-						Your browser does not support the video tag.
-					</video>
+					<div className="relative w-full" style={{ paddingBottom: "56.25%" }}>
+						<iframe
+							className="absolute top-0 left-0 w-full h-full"
+							src="https://www.youtube.com/embed/LWIqgcSaV74"
+							title="SuperSummary Demo"
+							allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+							allowFullScreen
+						/>
+					</div>
 				</div>
 			</div>
 		</div>

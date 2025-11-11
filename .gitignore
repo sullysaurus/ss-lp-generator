@@ -42,3 +42,6 @@ yarn-error.log*
 /playwright-report/
 /blob-report/
 /playwright/*
+
+# Large video files
+public/SuperSummary.mp4
