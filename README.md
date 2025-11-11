@@ -5,63 +5,86 @@ AI-powered lesson plan generator with prompt testing capabilities, built with Ne
 ## Tech Stack
 
 - **Framework**: Next.js 15 with App Router
-- **AI**: Vercel AI SDK with multiple models (Grok, Claude, Gemini)
+- **AI**: Vercel AI SDK with Claude Sonnet 4.5 and Gemini 2.0 Flash
 - **MCP**: Model Context Protocol for serving study guides
 - **Database**: Neon Postgres with Drizzle ORM
 - **UI**: shadcn/ui + Tailwind CSS + Radix UI
 - **Auth**: NextAuth.js
+- **Demo Mode**: Optional mock responses for cost-free demonstrations
 
 ## Features
 
 ### Lesson Plan Generator
 - Generate custom lesson plans from 3 literary study guides
-- AI-powered responses with multiple model options:
-  - **Grok Vision**: Advanced multimodal model
-  - **Grok Reasoning**: Chain-of-thought reasoning
+- AI-powered responses with model options:
   - **Claude Sonnet 4.5**: Anthropic's most capable model
-  - **Gemini 2.0 Flash**: Google's fast multimodal model
-- Searchable guide selector with detailed descriptions
+  - **Gemini 2.0 Flash**: Google's fast, cost-effective model
+- Searchable guide selector with grade level and duration options
 - Multi-modal support (text and file attachments)
+
+### Demo Mode
+- Enable with `NEXT_PUBLIC_DEMO_MODE=true`
+- Instant mock responses without API costs
+- Perfect for presentations and demonstrations
+- Visual banner indicates demo mode is active
 
 ### Prompt Testing Interface
 - Document and compare AI prompt iterations
-- Test prompts across multiple guides
-- Track model settings (temperature, tokens, etc.)
+- Test prompts across multiple guides simultaneously
+- Track model settings (temperature, top P, frequency/presence penalties, max tokens)
+- Version management with auto-incrementing versions
+- Load previous prompt versions for testing
+- Export/import test data
 - Add commentary and iteration notes
-- Full CRUD operations for test management
 
 ### Study Guides (via MCP)
-1. "A Respectable Woman" by Kate Chopin
-2. "Teaching Critical Thinking" by bell hooks
-3. "The Corrections" by Jonathan Franzen
+1. **"A Respectable Woman"** by Kate Chopin - Short story exploring propriety and desire
+2. **"Teaching Critical Thinking"** by bell hooks - Educational essay on critical pedagogy
+3. **"The Corrections"** by Jonathan Franzen - Novel examining family and American culture
+
+### Additional Features
+- **Slides**: Presentation deck about the application features
+- **Video Demo**: Embedded YouTube demonstration
+- **Prompt Versions**: Track and manage prompt evolution
+- **Spreadsheet**: Link to analysis and tracking
 
 ## How to Use
 
-### Getting Started
-On the home screen, click the **"Generate Lesson Plan"** button to start creating educational content. You can also ask questions in the chat to learn about the guides, features, and how MCP works.
-
 ### Generate a Lesson Plan
-1. Click **"Generate Lesson Plan"** button in the chat input
+1. Click the **"Generate Lesson Plan"** button on the home screen
 2. Select a guide from the searchable dropdown
-3. Choose your desired lesson plan type (single lesson, week-long unit, etc.)
-4. The AI will generate a comprehensive lesson plan with objectives, activities, and assessments
+3. Choose grade level (optional: K-5, 6-8, 9-12, College)
+4. Select duration (optional: single class, multi-day, week-long unit)
+5. The AI will read the full guide and generate a comprehensive lesson plan with:
+   - Learning objectives aligned to standards
+   - Detailed activities with timelines
+   - Assessment strategies
+   - Differentiation for diverse learners
+   - Homework and extensions
 
-### Test Prompts
-1. Navigate to **"Prompt Tests"** from the sidebar
-2. Click **"New Test"** to create a prompt test
-3. Fill in:
-   - Title and prompt text
-   - Model and temperature settings
-   - Test outputs for each guide
-   - Commentary on results
-4. Save and compare different prompt iterations
+### Test and Compare Prompts
+1. Navigate to **"Prompts"** from the sidebar to manage prompt versions
+2. Navigate to **"Prompt Tests"** to run tests
+3. Click **"New Test"** to create a prompt test
+4. Select a prompt version or use the active prompt
+5. Configure model settings with helpful tooltips
+6. **Run the test** to generate outputs for all three guides
+7. Review results and save when satisfied
+8. Compare different prompt versions and model configurations
+
+### Navigation
+- **Lesson Plans**: Main chat interface for generating lesson plans
+- **Prompts**: Manage and version your prompt templates
+- **Slides**: View presentation about the application
+- **View Code**: GitHub repository
+- **Spreadsheet**: Analysis and tracking data
 
 ### Chat Features
-- Ask questions about the study guides
-- Request specific teaching materials
-- Upload files for context
+- Natural conversation about the study guides
+- Request specific teaching materials or activities
+- Upload files for additional context
 - View and continue previous conversations
-- Ask "how does this work" or "where do guides come from" for help
+- Ask "how does this work" for help
 
 ## Running locally
 
