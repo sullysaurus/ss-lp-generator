@@ -58,9 +58,11 @@ async function getMCPClientLocal(): Promise<Client> {
  */
 export async function readGuide(uri: string): Promise<string> {
 	if (isServerless) {
+		console.log("[MCP Client] Using serverless reader (detected VERCEL=1)");
 		return GuideReader.readGuide(uri);
 	}
 
+	console.log("[MCP Client] Using MCP server via stdio");
 	const client = await getMCPClientLocal();
 	const response = await client.readResource({ uri });
 

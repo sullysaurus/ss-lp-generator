@@ -84,12 +84,19 @@ export function GuideSelector({
 		const guide = GUIDES.find((g) => g.id === selectedGuide);
 		if (!guide) return;
 
-		const prompt = `Generate a comprehensive lesson plan based on ${guide.name} (${guide.uri}).
+		const prompt = `IMPORTANT: First, use the readGuide tool to read ${guide.uri}. Then generate a comprehensive lesson plan for "${guide.name}" by ${guide.author}.
 
-Grade Level: ${gradeLevel || "Not specified"}
-Duration: ${duration || "Not specified"}
+**Required Parameters:**
+- Grade Level: ${gradeLevel || "Not specified"}
+- Duration: ${duration || "Not specified"}
 
-Please read the guide content and create a detailed lesson plan with learning objectives, activities, materials, assessments, and differentiation strategies.`;
+**Instructions:**
+1. Call readGuide(uri="${guide.uri}") to access the full study guide content
+2. Analyze the guide content thoroughly
+3. Create a detailed lesson plan with learning objectives, activities, materials, assessments, and differentiation strategies
+4. Ground all activities and examples in specific content from the guide
+
+Begin by reading the guide using the readGuide tool.`;
 
 		onGenerate(prompt);
 		onOpenChange(false);

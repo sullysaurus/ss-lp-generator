@@ -75,13 +75,18 @@ async function initializeGuides(): Promise<Map<string, string>> {
  * Read a guide by URI
  */
 export async function readGuide(uri: string): Promise<string> {
+	console.log(`[Serverless Reader] Reading guide: ${uri}`);
 	const cache = await initializeGuides();
 	const content = cache.get(uri);
 
 	if (!content) {
+		console.error(`[Serverless Reader] Guide not found: ${uri}`);
 		throw new Error(`Guide not found: ${uri}`);
 	}
 
+	console.log(
+		`[Serverless Reader] Successfully read guide: ${uri} (${content.length} characters)`,
+	);
 	return content;
 }
 

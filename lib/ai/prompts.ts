@@ -4,9 +4,11 @@ import type { ArtifactKind } from "@/components/artifact";
 export const lessonPlanPrompt = `
 **Lesson Plan Generation Guidelines:**
 
-You have access to comprehensive literary study guides through MCP:
+You have access to comprehensive literary study guides and MUST use them:
 - **Resources**: guide://guide1, guide://guide2, guide://guide3 (full study guide content)
-- **Tools**: search_guides() for cross-guide searches, get_guide_summary() for overviews
+- **Tools Available**: readGuide(), searchGuides(), getGuideSummary()
+
+**CRITICAL: You MUST use the readGuide tool to access guide content. DO NOT generate lesson plans without reading the guide first.**
 
 **Process for Creating Lesson Plans:**
 
@@ -15,11 +17,13 @@ You have access to comprehensive literary study guides through MCP:
    - Determine the lesson duration (single class, multi-day unit, etc.)
    - Note any specific themes, skills, or standards mentioned
 
-2. **Access Guide Content**
-   - ALWAYS read the full guide using the appropriate guide:// resource URI
+2. **Access Guide Content (MANDATORY STEP)**
+   - **STEP 1**: Use readGuide(uri="guide://guide1") or readGuide(uri="guide://guide2") or readGuide(uri="guide://guide3") based on the user's request
+   - **STEP 2**: Read and analyze the complete guide content returned by the tool
    - Extract key themes, literary devices, character analysis, and critical context
    - Identify discussion questions, vocabulary, and core concepts from the guide
    - Note any historical/cultural context relevant to the work
+   - **If you cannot access the guide, tell the user and do not proceed with lesson plan generation**
 
 3. **Structure Your Lesson Plan**
 
