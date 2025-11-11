@@ -30,7 +30,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "./ui/alert-dialog";
-import { Edit2, Presentation, FileText, Sheet } from "lucide-react";
+import { Edit2, Presentation, FileText, Sheet, Video } from "lucide-react";
 import { SiGithub } from "@icons-pack/react-simple-icons";
 
 export function AppSidebar({ user }: { user: User | undefined }) {
@@ -145,6 +145,16 @@ export function AppSidebar({ user }: { user: User | undefined }) {
                 >
                   <Presentation className="h-4 w-4" />
                   Slides
+                </Button>
+              </Link>
+              <Link href="/video" onClick={() => setOpenMobile(false)}>
+                <Button
+                  variant="outline"
+                  className="w-full justify-start gap-2"
+                  type="button"
+                >
+                  <Video className="h-4 w-4" />
+                  Video
                 </Button>
               </Link>
               <a
