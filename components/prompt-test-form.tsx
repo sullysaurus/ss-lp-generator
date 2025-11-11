@@ -52,7 +52,6 @@ type PromptTestFormProps = {
 export function PromptTestForm({ test, onClose }: PromptTestFormProps) {
   const [loading, setLoading] = useState(false);
   const [running, setRunning] = useState(false);
-  const [loadingPrompt, setLoadingPrompt] = useState(false);
   const [showPromptSelector, setShowPromptSelector] = useState(false);
   const [promptVersions, setPromptVersions] = useState<PromptVersion[]>([]);
   const [formData, setFormData] = useState({
@@ -107,7 +106,6 @@ export function PromptTestForm({ test, onClose }: PromptTestFormProps) {
   };
 
   const loadDefaultPrompt = async () => {
-    setLoadingPrompt(true);
     try {
       const response = await fetch("/api/prompts/lesson-plan");
       if (response.ok) {
@@ -123,8 +121,6 @@ export function PromptTestForm({ test, onClose }: PromptTestFormProps) {
     } catch (error) {
       console.error("Error loading prompt:", error);
       alert("Error loading lesson plan prompt");
-    } finally {
-      setLoadingPrompt(false);
     }
   };
 
@@ -146,42 +142,167 @@ export function PromptTestForm({ test, onClose }: PromptTestFormProps) {
 
     setRunning(true);
 
-    try {
-      const response = await fetch("/api/prompt-tests/run", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          prompt: formData.prompt,
-          model: formData.model,
-          temperature: parseFloat(formData.temperature),
-          maxTokens: parseInt(formData.maxTokens),
-          topP: parseFloat(formData.topP),
-          frequencyPenalty: parseFloat(formData.frequencyPenalty),
-          presencePenalty: parseFloat(formData.presencePenalty),
-        }),
-      });
+    // Simulate a brief loading delay for UX
+    await new Promise((resolve) => setTimeout(resolve, 800));
 
-      if (response.ok) {
-        const data = await response.json();
+    // Mock lesson plans for each guide
+    const mockLessonPlans = {
+      guide1: `## Title and Overview
 
-        // Auto-populate the guide outputs AND commentary
-        setFormData({
-          ...formData,
-          guide1Output: data.results[0]?.output || "",
-          guide2Output: data.results[1]?.output || "",
-          guide3Output: data.results[2]?.output || "",
-          commentary: data.commentary || "",
-        });
-      } else {
-        console.error("Failed to run test");
-        alert("Failed to run test. Please try again.");
-      }
-    } catch (error) {
-      console.error("Error running test:", error);
-      alert("Error running test. Please try again.");
-    } finally {
-      setRunning(false);
-    }
+**Exploring Desire and Respectability: A Critical Analysis of Kate Chopin's "A Respectable Woman"**
+
+This lesson engages students in analyzing how Kate Chopin uses literary techniques to explore the tension between societal expectations and personal desires in late 19th-century Louisiana. Students will examine characterization, symbolism, and narrative ambiguity while considering the story's historical and cultural context.
+
+## Learning Objectives
+
+- Students will analyze how Chopin develops Mrs. Baroda's character through indirect characterization
+- Students will interpret symbolic elements and explain how they contribute to the story's themes
+- Students will evaluate the story's ambiguous ending and construct evidence-based interpretations
+- Students will connect the story's themes to historical context by explaining how it reflects tensions between Victorian propriety and emerging feminist thought
+
+## Activities
+
+**Day 1: Introduction and Close Reading (50 min)**
+- Hook: Quick-write about societal expectations vs. personal desires
+- Historical context: Women's roles in the 1890s
+- Close reading of key passages
+- Character analysis graphic organizer
+
+**Day 2: Symbolism and Discussion (50 min)**
+- Symbol analysis worksheet (night, bench, physical distance)
+- Socratic seminar on the ambiguous ending
+- Text-to-world connections
+
+## Assessment
+Literary analysis paragraph evaluating Chopin's use of symbolism to develop themes of desire versus respectability.
+
+---
+*Note: This is demo data generated instantly for testing purposes.*`,
+
+      guide2: `## Title and Overview
+
+**Developing Critical Consciousness: Applying bell hooks' Engaged Pedagogy**
+
+This lesson introduces students to bell hooks' philosophy of engaged pedagogy and critical thinking, encouraging them to examine their own educational experiences and develop skills for questioning assumptions and analyzing power structures.
+
+## Learning Objectives
+
+- Students will explain hooks' concept of engaged pedagogy and how it differs from traditional education
+- Students will identify and analyze power dynamics within educational settings
+- Students will practice critical thinking skills by examining their own assumptions and biases
+- Students will create strategies for implementing engaged pedagogy in their own learning
+
+## Activities
+
+**Day 1: Introduction to Critical Pedagogy (50 min)**
+- Hook: Discussion of memorable learning experiences and what made them meaningful
+- Reading and annotation of key excerpts from "Teaching Critical Thinking"
+- Small group discussion: What is critical consciousness?
+- Concept mapping: Key ideas in engaged pedagogy
+
+**Day 2: Applying Critical Thinking (50 min)**
+- Analyze a case study using hooks' framework
+- Socratic circle: What makes a classroom "safe" yet intellectually challenging?
+- Reflection: How do we practice critical thinking in our own lives?
+- Action plan: One change to make our classroom more critically engaged
+
+## Assessment
+Reflective essay analyzing a personal educational experience through the lens of hooks' critical pedagogy framework.
+
+---
+*Note: This is demo data generated instantly for testing purposes.*`,
+
+      guide3: `## Title and Overview
+
+**Family, Identity, and American Values in Jonathan Franzen's "The Corrections"**
+
+This lesson guides students through analysis of Franzen's complex family narrative, examining how each character's attempts at "correction" reflect broader American cultural values and the challenges of maintaining family connections in modern society.
+
+## Learning Objectives
+
+- Students will analyze how Franzen uses multiple perspectives to develop complex characters
+- Students will evaluate how the novel's symbols (house, food, corrections) contribute to its themes
+- Students will connect the Lambert family's struggles to broader critiques of American capitalism and consumer culture
+- Students will synthesize textual evidence to construct interpretations of the novel's commentary on family and identity
+
+## Activities
+
+**Day 1: Character Analysis (50 min)**
+- Hook: Family photo analysis - What stories do families tell about themselves?
+- Character mapping: The Lambert family tree and relationships
+- Jigsaw reading: Each group analyzes one character's storyline
+- Share out: How does each character attempt to "correct" their life?
+
+**Day 2: Themes and Social Commentary (50 min)**
+- Symbol tracker: Students identify and analyze key symbols
+- Discussion: What is Franzen saying about American culture at the turn of the millennium?
+- Debate: Is the novel's ending hopeful or pessimistic?
+- Quick write: How do the "corrections" fail or succeed?
+
+**Day 3: Literary Analysis (50 min)**
+- Mini-lesson on social realism as a literary tradition
+- Close reading: Franzen's satirical style
+- Writing workshop: Thesis statements about the novel's social commentary
+- Peer review and revision
+
+## Assessment
+Analytical essay examining how one character's narrative arc reflects the novel's broader themes about American identity and family dysfunction.
+
+---
+*Note: This is demo data generated instantly for testing purposes.*`,
+    };
+
+    const mockCommentary = `## Overall Assessment
+
+All three lesson plans successfully demonstrate strong pedagogical structure and align well with the given prompt. Each plan shows clear learning objectives, well-scaffolded activities, and appropriate assessment strategies. The outputs consistently incorporate literary analysis with student engagement techniques.
+
+## Individual Scores
+
+**Guide 1: 9/10** - Excellent close reading focus and historical context integration. Strong differentiation strategies.
+
+**Guide 2: 8.5/10** - Thoughtful application of critical pedagogy concepts. Could benefit from more specific textual anchoring.
+
+**Guide 3: 9/10** - Comprehensive multi-day plan with effective use of collaborative learning. Excellent symbol analysis component.
+
+## Strengths
+
+- All plans include clear, measurable learning objectives aligned with higher-order thinking skills
+- Strong variety of instructional strategies (Socratic seminar, think-pair-share, graphic organizers)
+- Effective scaffolding from guided to independent practice
+- Appropriate assessment methods that go beyond recall to analysis and synthesis
+- Good balance of individual, pair, and whole-class activities
+
+## Areas for Improvement
+
+- Guide 2 could include more specific page references and textual evidence requirements
+- All plans would benefit from explicit connections to relevant standards (Common Core, state standards)
+- Technology integration opportunities are limited across all three
+- Could add more opportunities for student choice in activities or assessments
+
+## Prompt Effectiveness
+
+The prompt is clear and generating high-quality, pedagogically sound lesson plans. The outputs show good understanding of teaching literary analysis. To enhance future iterations:
+- Consider specifying desired technology integration
+- Add guidance about standard alignment
+- Request explicit connection to real-world contexts
+
+## Key Takeaways
+
+The prompt is highly effective at generating comprehensive, well-structured lesson plans that balance literary analysis with student engagement. The consistency across all three outputs suggests the model parameters are well-calibrated. Minor adjustments to the prompt could enhance specificity around standards and technology use.
+
+---
+*Note: This is demo data generated instantly for testing purposes - no actual AI analysis was performed.*`;
+
+    // Auto-populate the guide outputs AND commentary with mock data
+    setFormData({
+      ...formData,
+      guide1Output: mockLessonPlans.guide1,
+      guide2Output: mockLessonPlans.guide2,
+      guide3Output: mockLessonPlans.guide3,
+      commentary: mockCommentary,
+    });
+
+    setRunning(false);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
